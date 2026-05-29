@@ -108,22 +108,6 @@ body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--text);min
 .ad-title{font-size:15px;font-weight:700;color:var(--text)}
 .ad-sub{font-size:12px;color:var(--muted);max-width:300px;line-height:1.6}
 
-/* Context chips */
-.ctx-chip-bar{background:rgba(255,255,255,.92);border-bottom:1px solid var(--border);padding:6px 16px;display:flex;align-items:center;gap:8px;overflow-x:auto;flex-shrink:0;min-height:36px}
-.ctx-chip-bar::-webkit-scrollbar{height:0}
-.ctx-chip-label{font-size:9px;font-family:monospace;color:var(--muted2);letter-spacing:1px;text-transform:uppercase;flex-shrink:0;white-space:nowrap}
-.ctx-chip{display:inline-flex;align-items:center;gap:4px;padding:3px 5px 3px 9px;border-radius:20px;font-size:10px;font-weight:600;cursor:default;white-space:nowrap;flex-shrink:0}
-.chip-subject{border:1px solid rgba(99,102,241,.3);background:rgba(99,102,241,.09);color:var(--indigo)}
-.chip-grade{border:1px solid rgba(16,185,129,.3);background:rgba(16,185,129,.09);color:#059669}
-.chip-teacher{border:1px solid rgba(245,158,11,.3);background:rgba(245,158,11,.09);color:#b45309}
-.chip-assessment{border:1px solid rgba(59,130,246,.3);background:rgba(59,130,246,.09);color:var(--blue)}
-.chip-strand{border:1px solid rgba(139,92,246,.3);background:rgba(139,92,246,.09);color:var(--violet)}
-.chip-standard{border:1px solid rgba(6,182,212,.3);background:rgba(6,182,212,.09);color:var(--cyan)}
-.chip-question{border:1px solid rgba(239,68,68,.3);background:rgba(239,68,68,.09);color:var(--red)}
-.chip-student{border:1px solid rgba(249,115,22,.3);background:rgba(249,115,22,.09);color:var(--orange)}
-.ctx-chip-x{width:16px;height:16px;border-radius:50%;border:none;background:rgba(0,0,0,.08);color:inherit;font-size:10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;line-height:1;flex-shrink:0}
-.ctx-chip-x:hover{background:rgba(0,0,0,.18)}
-
 /* Breadcrumb */
 .drill-bar{background:rgba(255,255,255,.92);border-bottom:1px solid var(--border);padding:6px 12px;display:flex;align-items:center;gap:1px;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .drill-bar::-webkit-scrollbar{height:3px}
@@ -394,7 +378,7 @@ body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--text);min
       </div>
     </div>
     <label class="login-label">ID / NAME / EMAIL</label>
-    <input class="login-input" id="login-id" type="text" placeholder="e.g. teacher001 / Rahul Kumar / parent@email.com">
+    <input class="login-input" id="login-id" type="text" placeholder="e.g. admin001 / teacher name / student name">
     <div class="login-err" id="login-err">User not found. Try a demo credential below.</div>
     <button class="login-btn" onclick="doLogin()">Sign in →</button>
     <div style="font-size:10px;font-family:monospace;color:rgba(255,255,255,.3);margin-top:14px;margin-bottom:6px">QUICK DEMO — click to fill:</div>
@@ -402,8 +386,8 @@ body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--text);min
       <div class="demo-chip" onclick="fillDemo('admin','admin001')">🏫 Admin</div>
       <div class="demo-chip" onclick="fillDemo('teacher','MS. PRIYA SHARMA')">👩‍🏫 Ms. Priya</div>
       <div class="demo-chip" onclick="fillDemo('teacher','MR. RAJESH KUMAR')">👨‍🏫 Mr. Rajesh</div>
-      <div class="demo-chip" id="demo-stu1" onclick="fillDemo('student','')">🎓 Student 1</div>
-      <div class="demo-chip" id="demo-stu2" onclick="fillDemo('student','')">🎓 Student 2</div>
+      <div class="demo-chip" id="demo-stu1">🎓 Student 1</div>
+      <div class="demo-chip" id="demo-stu2">🎓 Student 2</div>
       <div class="demo-chip" onclick="fillDemo('parent','parent.rahul')">👨‍👩‍👧 Parent</div>
     </div>
   </div>
@@ -423,7 +407,6 @@ body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--text);min
       <circle cx="36" cy="10" r="2.5" fill="white"/>
     </svg>
   </div>
-  <!-- Admin + Teacher + Student tabs -->
   <button class="sib on" id="sib-home" onclick="sibNav(this,'home')">
     <span style="font-size:22px;line-height:1">📊</span>
     <span class="sib-label">Home</span>
@@ -433,7 +416,6 @@ body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--text);min
     <span style="font-size:22px;line-height:1">📝</span>
     <span class="sib-label">Lessons</span>
   </button>
-  <!-- Parent extra tabs -->
   <button class="sib hidden" id="sib-parent-report" onclick="sibNav(this,'parent-report')">
     <span style="font-size:22px;line-height:1">📋</span>
     <span class="sib-label">Report</span>
@@ -489,7 +471,7 @@ body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--text);min
     </div>
   </div>
 
-  <!-- Breadcrumb — admin/teacher only -->
+  <!-- Breadcrumb -->
   <div class="drill-bar" id="drill-bar">
     <div class="drumb done" id="db-school" onclick="navCrumb('school',0)"><span class="drumb-ico">🏠</span><span class="drumb-txt">Home</span></div>
     <div class="drumb-sep" id="sep-sub">›</div>
@@ -547,7 +529,11 @@ body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--text);min
           </div>
         </div>
       </div>
-      <div class="card"><div class="sec-head"><div class="sec-title">Subject performance</div><div class="sec-badge">CLICK TO DRILL</div></div><div id="home-subj-bars"></div></div>
+      <!-- Subject cards — click to drill -->
+      <div class="card">
+        <div class="sec-head"><div class="sec-title">Subject performance</div><div class="sec-badge">CLICK TO DRILL</div></div>
+        <div id="home-subj-bars"></div>
+      </div>
       <div class="card">
         <div class="sec-head">
           <div class="sec-title">All students — quick view</div>
@@ -568,11 +554,71 @@ body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--text);min
       </div>
     </div>
 
-    <!-- ═══════════ TEACHER PANEL ═══════════ -->
+    <!-- ═══════════ SUBJECT SELECTOR PANEL ═══════════ -->
+    <div class="drill-panel" id="panel-subject">
+      <div class="kpi-strip" id="subj-panel-kpis">
+        <div class="kpi c-indigo"><div class="kpi-lbl">SUBJECTS</div><div class="kpi-val">7</div></div>
+        <div class="kpi c-green"><div class="kpi-lbl">SCHOOL AVG</div><div class="kpi-val">72.4%</div></div>
+        <div class="kpi c-red"><div class="kpi-lbl">HIGH RISK</div><div class="kpi-val" id="subj-highrisk">—</div></div>
+        <div class="kpi c-amber"><div class="kpi-lbl">STUDENTS</div><div class="kpi-val">300</div></div>
+        <div class="kpi c-blue"><div class="kpi-lbl">ASSESSMENTS</div><div class="kpi-val">318</div></div>
+        <div class="kpi c-indigo"><div class="kpi-lbl">GRADES</div><div class="kpi-val">8</div></div>
+        <div class="kpi c-green"><div class="kpi-lbl">TEACHERS</div><div class="kpi-val">6</div></div>
+        <div class="kpi c-amber"><div class="kpi-lbl">QUIZ RUNS</div><div class="kpi-val">2,140</div></div>
+        <div class="kpi c-red"><div class="kpi-lbl">MED RISK</div><div class="kpi-val" id="subj-medrisk">—</div></div>
+      </div>
+      <div class="card">
+        <div class="sec-head"><div class="sec-title">Select a subject to drill down</div><div class="sec-badge">7 SUBJECTS</div></div>
+        <div id="subj-selector-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px"></div>
+      </div>
+    </div>
+
+    <!-- ═══════════ GRADE SELECTOR PANEL ═══════════ -->
+    <div class="drill-panel" id="panel-grade">
+      <div class="kpi-strip" id="grade-panel-kpis">
+        <div class="kpi c-indigo"><div class="kpi-lbl">SUBJECT</div><div class="kpi-val" id="gp-subject" style="font-size:11px">—</div></div>
+        <div class="kpi c-green"><div class="kpi-lbl">SUBJ AVG</div><div class="kpi-val" id="gp-avg">—</div></div>
+        <div class="kpi c-red"><div class="kpi-lbl">HIGH RISK</div><div class="kpi-val" id="gp-highrisk">—</div></div>
+        <div class="kpi c-amber"><div class="kpi-lbl">STUDENTS</div><div class="kpi-val" id="gp-students">—</div></div>
+        <div class="kpi c-blue"><div class="kpi-lbl">GRADES</div><div class="kpi-val">8</div></div>
+        <div class="kpi c-indigo"><div class="kpi-lbl">ASSESSMENTS</div><div class="kpi-val" id="gp-assess">—</div></div>
+        <div class="kpi c-green"><div class="kpi-lbl">SCHOOL AVG</div><div class="kpi-val">72.4%</div></div>
+        <div class="kpi c-amber"><div class="kpi-lbl">FAIL RATE</div><div class="kpi-val" id="gp-fail">—</div></div>
+        <div class="kpi c-red"><div class="kpi-lbl">MED RISK</div><div class="kpi-val" id="gp-medrisk">—</div></div>
+      </div>
+      <div class="card">
+        <div class="sec-head"><div class="sec-title" id="grade-panel-title">Select a grade</div><div class="sec-badge">8 GRADES</div></div>
+        <div class="grade-grid" id="grade-selector-grid"></div>
+      </div>
+      <div class="g2">
+        <div class="card"><div class="sec-head"><div class="sec-title">Grade performance comparison</div></div><div class="chart-h180"><canvas id="ch-grade-bar"></canvas></div></div>
+        <div class="card"><div class="sec-head"><div class="sec-title">Risk by grade</div></div><div class="chart-h180"><canvas id="ch-grade-risk"></canvas></div></div>
+      </div>
+    </div>
+
+    <!-- ═══════════ TEACHER SELECTOR PANEL (admin drill) ═══════════ -->
+    <div class="drill-panel" id="panel-teacher-select">
+      <div class="kpi-strip">
+        <div class="kpi c-indigo"><div class="kpi-lbl">SUBJECT</div><div class="kpi-val" id="tsel-subject" style="font-size:11px">—</div></div>
+        <div class="kpi c-green"><div class="kpi-lbl">GRADE</div><div class="kpi-val" id="tsel-grade" style="font-size:11px">—</div></div>
+        <div class="kpi c-blue"><div class="kpi-lbl">TEACHERS</div><div class="kpi-val" id="tsel-count">—</div></div>
+        <div class="kpi c-red"><div class="kpi-lbl">HIGH RISK</div><div class="kpi-val" id="tsel-highrisk">—</div></div>
+        <div class="kpi c-amber"><div class="kpi-lbl">STUDENTS</div><div class="kpi-val" id="tsel-students">—</div></div>
+        <div class="kpi c-green"><div class="kpi-lbl">AVG SCORE</div><div class="kpi-val" id="tsel-avg">—</div></div>
+        <div class="kpi c-indigo"><div class="kpi-lbl">SCHOOL AVG</div><div class="kpi-val">72.4%</div></div>
+        <div class="kpi c-amber"><div class="kpi-lbl">ASSESSMENTS</div><div class="kpi-val">4</div></div>
+        <div class="kpi c-red"><div class="kpi-lbl">MED RISK</div><div class="kpi-val" id="tsel-medrisk">—</div></div>
+      </div>
+      <div class="card">
+        <div class="sec-head"><div class="sec-title" id="tsel-title">Select a teacher</div><div class="sec-badge">CLICK TO DRILL</div></div>
+        <div id="tsel-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px"></div>
+      </div>
+    </div>
+
+    <!-- ═══════════ TEACHER SELF PANEL (when logged in as teacher) ═══════════ -->
     <div class="drill-panel" id="panel-teacher">
-      <!-- Subject+Grade filter bar for teacher -->
       <div id="t-filter-bar" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px;padding:10px 14px;background:rgba(255,255,255,.95);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow)">
-        <span style="font-size:9px;font-family:monospace;color:var(--muted2);letter-spacing:1px;flex-shrink:0">FILTER CLASS:</span>
+        <span style="font-size:9px;font-family:monospace;color:var(--muted2);letter-spacing:1px;flex-shrink:0">MY CLASSES:</span>
         <div id="t-class-tabs" style="display:flex;gap:6px;flex-wrap:wrap"></div>
         <div style="margin-left:auto;font-size:9px;font-family:monospace;color:var(--muted2)" id="t-filter-label"></div>
       </div>
@@ -580,11 +626,11 @@ body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--text);min
         <div class="kpi c-indigo"><div class="kpi-lbl">TEACHER</div><div class="kpi-val" id="t1-name" style="font-size:11px;line-height:1.3">—</div></div>
         <div class="kpi c-green"><div class="kpi-lbl">CLASS AVG</div><div class="kpi-val" id="t1-avg">—</div></div>
         <div class="kpi c-red"><div class="kpi-lbl">AT RISK</div><div class="kpi-val" id="t1-risk">—</div></div>
-        <div class="kpi c-blue"><div class="kpi-lbl">CLASSES</div><div class="kpi-val">3</div></div>
+        <div class="kpi c-blue"><div class="kpi-lbl">CLASSES</div><div class="kpi-val" id="t1-classes">3</div></div>
         <div class="kpi c-indigo"><div class="kpi-lbl">SCHOOL AVG</div><div class="kpi-val">72.4%</div></div>
         <div class="kpi c-amber"><div class="kpi-lbl">STUDENTS</div><div class="kpi-val" id="t1-students">—</div></div>
         <div class="kpi c-red"><div class="kpi-lbl">HIGH RISK</div><div class="kpi-val" id="t1-highrisk">—</div></div>
-        <div class="kpi c-green"><div class="kpi-lbl">QUIZ RUNS</div><div class="kpi-val">284</div></div>
+        <div class="kpi c-green"><div class="kpi-lbl">QUIZ RUNS</div><div class="kpi-val" id="t1-quizruns">284</div></div>
         <div class="kpi c-amber"><div class="kpi-lbl">ASSESSMENTS</div><div class="kpi-val" id="t1-assessments">12</div></div>
       </div>
       <div class="g2">
@@ -595,7 +641,7 @@ body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--text);min
         <div class="sec-head">
           <div class="sec-title" id="t-students-title">My students</div>
           <div style="display:flex;gap:5px;flex-wrap:wrap">
-            <button class="jtag active" onclick="filterTeacherStudents('all',this)">All</button>
+            <button class="jtag active" id="t-filter-all" onclick="filterTeacherStudents('all',this)">All</button>
             <button class="jtag" onclick="filterTeacherStudents('High',this)">High Risk</button>
             <button class="jtag" onclick="filterTeacherStudents('Med',this)">Med Risk</button>
             <button class="jtag" onclick="filterTeacherStudents('Low',this)">On Track</button>
@@ -605,7 +651,7 @@ body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--text);min
         <table class="tbl"><thead><tr><th>Student</th><th>Grade</th><th>Subject</th><th>Score</th><th>Correct</th><th>Wrong</th><th>Risk</th><th>Trend</th><th></th></tr></thead><tbody id="t-stu-tbody"></tbody></table>
       </div>
       <div class="card">
-        <div class="sec-head"><div class="sec-title">My assessments</div><div class="sec-badge">CLICK TO VIEW</div></div>
+        <div class="sec-head"><div class="sec-title">My assessments</div><div class="sec-badge">CLICK TO DRILL</div></div>
         <table class="tbl"><thead><tr><th>Assessment</th><th>Type</th><th>Avg</th><th>Fail %</th><th>Difficulty</th></tr></thead><tbody id="t-assess-tbody"></tbody></table>
       </div>
     </div>
@@ -648,7 +694,6 @@ body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--text);min
 
     <!-- ═══════════ PARENT PANEL ═══════════ -->
     <div class="drill-panel" id="panel-parent">
-      <!-- sub-tabs for parent -->
       <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap" id="parent-subtab-bar">
         <button class="jtag active" id="ptab-overview" onclick="showParentTab('overview',this)">📊 Overview</button>
         <button class="jtag" id="ptab-report" onclick="showParentTab('report',this)">📋 Report Card</button>
@@ -656,8 +701,6 @@ body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--text);min
         <button class="jtag" id="ptab-progress" onclick="showParentTab('progress',this)">📈 Progress</button>
         <button class="jtag" id="ptab-alerts" onclick="showParentTab('alerts',this)">🔔 Alerts <span style="background:#ef4444;color:#fff;border-radius:9px;padding:0 5px;font-size:9px;margin-left:2px" id="alert-count">3</span></button>
       </div>
-
-      <!-- OVERVIEW TAB -->
       <div id="ptab-content-overview">
         <div class="parent-hero">
           <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
@@ -692,13 +735,8 @@ body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--text);min
           <div class="card"><div class="sec-head"><div class="sec-title">Score trend — last 8 tests</div></div><div class="chart-h180"><canvas id="ch-p-hist"></canvas></div></div>
           <div class="card"><div class="sec-head"><div class="sec-title">Skills vs class average</div></div><div class="chart-h180"><canvas id="ch-p-radar"></canvas></div></div>
         </div>
-        <div class="card">
-          <div class="sec-head"><div class="sec-title">Subject performance</div></div>
-          <div id="p-subject-bars"></div>
-        </div>
+        <div class="card"><div class="sec-head"><div class="sec-title">Subject performance</div></div><div id="p-subject-bars"></div></div>
       </div>
-
-      <!-- REPORT CARD TAB -->
       <div id="ptab-content-report" style="display:none">
         <div class="rc-modal-box" style="max-width:100%;border-radius:var(--r);box-shadow:none">
           <div class="rc-header">
@@ -726,8 +764,6 @@ body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--text);min
           </div>
         </div>
       </div>
-
-      <!-- AI TUTOR TAB -->
       <div id="ptab-content-ai" style="display:none">
         <div class="insight-box" style="margin-bottom:12px">
           <div class="ib-head">🤖 AI Tutor — Personalized for <span id="p-ai-child-name" style="margin-left:4px">your child</span></div>
@@ -755,108 +791,51 @@ body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--text);min
         <div class="g2">
           <div class="card">
             <div class="sec-head"><div class="sec-title">Recommended resources</div></div>
-            <div style="display:flex;flex-direction:column;gap:8px" id="p-resources">
-              <div style="padding:10px;border:1px solid var(--border);border-radius:9px;display:flex;align-items:center;gap:10px">
-                <div style="font-size:20px">📐</div>
-                <div><div style="font-size:11px;font-weight:600">Geometry Practice Pack</div><div style="font-size:10px;color:var(--muted)">30 questions · Congruence & Triangles</div></div>
-                <button class="btn btn-primary" style="margin-left:auto;font-size:10px;padding:4px 10px">Start</button>
-              </div>
-              <div style="padding:10px;border:1px solid var(--border);border-radius:9px;display:flex;align-items:center;gap:10px">
-                <div style="font-size:20px">🔢</div>
-                <div><div style="font-size:11px;font-weight:600">Number Operations Revision</div><div style="font-size:10px;color:var(--muted)">20 questions · Fundamental operations</div></div>
-                <button class="btn" style="margin-left:auto;font-size:10px;padding:4px 10px">View</button>
-              </div>
-              <div style="padding:10px;border:1px solid var(--border);border-radius:9px;display:flex;align-items:center;gap:10px">
-                <div style="font-size:20px">📊</div>
-                <div><div style="font-size:11px;font-weight:600">Statistics Basics</div><div style="font-size:10px;color:var(--muted)">15 questions · Mean, Median, Mode</div></div>
-                <button class="btn" style="margin-left:auto;font-size:10px;padding:4px 10px">View</button>
-              </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="padding:10px;border:1px solid var(--border);border-radius:9px;display:flex;align-items:center;gap:10px"><div style="font-size:20px">📐</div><div><div style="font-size:11px;font-weight:600">Geometry Practice Pack</div><div style="font-size:10px;color:var(--muted)">30 questions · Congruence & Triangles</div></div><button class="btn btn-primary" style="margin-left:auto;font-size:10px;padding:4px 10px">Start</button></div>
+              <div style="padding:10px;border:1px solid var(--border);border-radius:9px;display:flex;align-items:center;gap:10px"><div style="font-size:20px">🔢</div><div><div style="font-size:11px;font-weight:600">Number Operations Revision</div><div style="font-size:10px;color:var(--muted)">20 questions · Fundamental operations</div></div><button class="btn" style="margin-left:auto;font-size:10px;padding:4px 10px">View</button></div>
+              <div style="padding:10px;border:1px solid var(--border);border-radius:9px;display:flex;align-items:center;gap:10px"><div style="font-size:20px">📊</div><div><div style="font-size:11px;font-weight:600">Statistics Basics</div><div style="font-size:10px;color:var(--muted)">15 questions · Mean, Median, Mode</div></div><button class="btn" style="margin-left:auto;font-size:10px;padding:4px 10px">View</button></div>
             </div>
           </div>
           <div class="card">
             <div class="sec-head"><div class="sec-title">Weekly study plan</div></div>
             <div style="display:flex;flex-direction:column;gap:7px">
-              <div style="display:flex;gap:9px;align-items:flex-start">
-                <div style="min-width:20px;height:20px;border-radius:5px;background:#6366f1;color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">M</div>
-                <div><div style="font-size:11px;font-weight:600">Geometry — Triangle properties</div><div style="font-size:10px;color:var(--muted)">20 min · Watch video + 10 practice Qs</div></div>
-              </div>
-              <div style="display:flex;gap:9px;align-items:flex-start">
-                <div style="min-width:20px;height:20px;border-radius:5px;background:#8b5cf6;color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">T</div>
-                <div><div style="font-size:11px;font-weight:600">Algebra — Linear equations</div><div style="font-size:10px;color:var(--muted)">25 min · Practice worksheet</div></div>
-              </div>
-              <div style="display:flex;gap:9px;align-items:flex-start">
-                <div style="min-width:20px;height:20px;border-radius:5px;background:#06b6d4;color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">W</div>
-                <div><div style="font-size:11px;font-weight:600">Revision + Mock Quiz</div><div style="font-size:10px;color:var(--muted)">30 min · AI-generated quiz</div></div>
-              </div>
-              <div style="display:flex;gap:9px;align-items:flex-start">
-                <div style="min-width:20px;height:20px;border-radius:5px;background:#10b981;color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">Th</div>
-                <div><div style="font-size:11px;font-weight:600">English + Hindi reading</div><div style="font-size:10px;color:var(--muted)">20 min · Comprehension exercise</div></div>
-              </div>
-              <div style="display:flex;gap:9px;align-items:flex-start">
-                <div style="min-width:20px;height:20px;border-radius:5px;background:#f59e0b;color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">F</div>
-                <div><div style="font-size:11px;font-weight:600">Weekly review + parent check-in</div><div style="font-size:10px;color:var(--muted)">15 min · Review week's scores</div></div>
-              </div>
+              <div style="display:flex;gap:9px;align-items:flex-start"><div style="min-width:20px;height:20px;border-radius:5px;background:#6366f1;color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">M</div><div><div style="font-size:11px;font-weight:600">Geometry — Triangle properties</div><div style="font-size:10px;color:var(--muted)">20 min · Watch video + 10 practice Qs</div></div></div>
+              <div style="display:flex;gap:9px;align-items:flex-start"><div style="min-width:20px;height:20px;border-radius:5px;background:#8b5cf6;color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">T</div><div><div style="font-size:11px;font-weight:600">Algebra — Linear equations</div><div style="font-size:10px;color:var(--muted)">25 min · Practice worksheet</div></div></div>
+              <div style="display:flex;gap:9px;align-items:flex-start"><div style="min-width:20px;height:20px;border-radius:5px;background:#06b6d4;color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">W</div><div><div style="font-size:11px;font-weight:600">Revision + Mock Quiz</div><div style="font-size:10px;color:var(--muted)">30 min · AI-generated quiz</div></div></div>
+              <div style="display:flex;gap:9px;align-items:flex-start"><div style="min-width:20px;height:20px;border-radius:5px;background:#10b981;color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">Th</div><div><div style="font-size:11px;font-weight:600">English + Hindi reading</div><div style="font-size:10px;color:var(--muted)">20 min · Comprehension exercise</div></div></div>
+              <div style="display:flex;gap:9px;align-items:flex-start"><div style="min-width:20px;height:20px;border-radius:5px;background:#f59e0b;color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">F</div><div><div style="font-size:11px;font-weight:600">Weekly review + parent check-in</div><div style="font-size:10px;color:var(--muted)">15 min · Review week's scores</div></div></div>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- PROGRESS TAB -->
       <div id="ptab-content-progress" style="display:none">
         <div class="g2">
           <div class="card"><div class="sec-head"><div class="sec-title">Score history — all tests</div></div><div class="chart-h180"><canvas id="ch-p-full-hist"></canvas></div></div>
           <div class="card"><div class="sec-head"><div class="sec-title">Subject comparison</div></div><div class="chart-h180"><canvas id="ch-p-subj-bar"></canvas></div></div>
         </div>
-        <div class="card">
-          <div class="sec-head"><div class="sec-title">Strand-by-strand mastery</div><div class="sec-badge">CHILD vs CLASS AVG</div></div>
-          <div id="p-strand-compare"></div>
-        </div>
-        <div class="card">
-          <div class="sec-head"><div class="sec-title">Assessment history</div></div>
-          <table class="tbl"><thead><tr><th>Assessment</th><th>Subject</th><th>Date</th><th>Child score</th><th>Class avg</th><th>Rank</th><th>Status</th></tr></thead>
-          <tbody id="p-assess-history"></tbody></table>
+        <div class="card"><div class="sec-head"><div class="sec-title">Strand-by-strand mastery</div><div class="sec-badge">CHILD vs CLASS AVG</div></div><div id="p-strand-compare"></div></div>
+        <div class="card"><div class="sec-head"><div class="sec-title">Assessment history</div></div>
+          <table class="tbl"><thead><tr><th>Assessment</th><th>Subject</th><th>Date</th><th>Child score</th><th>Class avg</th><th>Rank</th><th>Status</th></tr></thead><tbody id="p-assess-history"></tbody></table>
         </div>
       </div>
-
-      <!-- ALERTS TAB -->
       <div id="ptab-content-alerts" style="display:none">
-        <div style="display:flex;flex-direction:column;gap:10px" id="p-alerts-list">
-          <div style="padding:14px;border:1px solid rgba(239,68,68,.25);border-radius:var(--r);background:rgba(239,68,68,.04);display:flex;gap:12px;align-items:flex-start">
-            <div style="font-size:22px;flex-shrink:0">⚠️</div>
-            <div style="flex:1">
-              <div style="font-size:12px;font-weight:700;color:#dc2626;margin-bottom:3px">Low score alert — Mathematics</div>
-              <div style="font-size:11px;color:var(--muted);line-height:1.6">Child scored 38% on Unit Test 2 (Ch 4-5). Class average was 61%. This is the second consecutive declining score in Mathematics. Immediate attention recommended.</div>
-              <div style="font-size:9px;font-family:monospace;color:var(--muted2);margin-top:5px">📅 3 days ago · Mathematics · Mr. Rajesh Kumar</div>
-            </div>
-          </div>
-          <div style="padding:14px;border:1px solid rgba(245,158,11,.25);border-radius:var(--r);background:rgba(245,158,11,.04);display:flex;gap:12px;align-items:flex-start">
-            <div style="font-size:22px;flex-shrink:0">📉</div>
-            <div style="flex:1">
-              <div style="font-size:12px;font-weight:700;color:#b45309;margin-bottom:3px">3 consecutive declines — Geometry strand</div>
-              <div style="font-size:11px;color:var(--muted);line-height:1.6">Performance in the Geometry strand has dropped for 3 consecutive assessments. Current mastery: 28%. Teacher has been notified.</div>
-              <div style="font-size:9px;font-family:monospace;color:var(--muted2);margin-top:5px">📅 1 week ago · Geometry · Ms. Priya Sharma</div>
-            </div>
-          </div>
-          <div style="padding:14px;border:1px solid rgba(99,102,241,.2);border-radius:var(--r);background:rgba(99,102,241,.04);display:flex;gap:12px;align-items:flex-start">
-            <div style="font-size:22px;flex-shrink:0">📚</div>
-            <div style="flex:1">
-              <div style="font-size:12px;font-weight:700;color:var(--indigo);margin-bottom:3px">New assessment upcoming — Science</div>
-              <div style="font-size:11px;color:var(--muted);line-height:1.6">Chapter 6 quiz in Science is scheduled for next week. Based on current preparation, AI predicts a score between 55–65%. Recommend reviewing photosynthesis and cell biology.</div>
-              <div style="font-size:9px;font-family:monospace;color:var(--muted2);margin-top:5px">📅 Tomorrow · Science · Mr. Rajesh Kumar</div>
-            </div>
-          </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="padding:14px;border:1px solid rgba(239,68,68,.25);border-radius:var(--r);background:rgba(239,68,68,.04);display:flex;gap:12px;align-items:flex-start"><div style="font-size:22px;flex-shrink:0">⚠️</div><div style="flex:1"><div style="font-size:12px;font-weight:700;color:#dc2626;margin-bottom:3px">Low score alert — Mathematics</div><div style="font-size:11px;color:var(--muted);line-height:1.6">Child scored 38% on Unit Test 2 (Ch 4-5). Class average was 61%. This is the second consecutive declining score in Mathematics.</div><div style="font-size:9px;font-family:monospace;color:var(--muted2);margin-top:5px">📅 3 days ago · Mathematics · Mr. Rajesh Kumar</div></div></div>
+          <div style="padding:14px;border:1px solid rgba(245,158,11,.25);border-radius:var(--r);background:rgba(245,158,11,.04);display:flex;gap:12px;align-items:flex-start"><div style="font-size:22px;flex-shrink:0">📉</div><div style="flex:1"><div style="font-size:12px;font-weight:700;color:#b45309;margin-bottom:3px">3 consecutive declines — Geometry strand</div><div style="font-size:11px;color:var(--muted);line-height:1.6">Performance in the Geometry strand has dropped for 3 consecutive assessments. Current mastery: 28%.</div><div style="font-size:9px;font-family:monospace;color:var(--muted2);margin-top:5px">📅 1 week ago · Geometry · Ms. Priya Sharma</div></div></div>
+          <div style="padding:14px;border:1px solid rgba(99,102,241,.2);border-radius:var(--r);background:rgba(99,102,241,.04);display:flex;gap:12px;align-items:flex-start"><div style="font-size:22px;flex-shrink:0">📚</div><div style="flex:1"><div style="font-size:12px;font-weight:700;color:var(--indigo);margin-bottom:3px">New assessment upcoming — Science</div><div style="font-size:11px;color:var(--muted);line-height:1.6">Chapter 6 quiz in Science is scheduled for next week. AI predicts a score between 55–65%. Review photosynthesis and cell biology.</div><div style="font-size:9px;font-family:monospace;color:var(--muted2);margin-top:5px">📅 Tomorrow · Science · Mr. Rajesh Kumar</div></div></div>
         </div>
       </div>
     </div>
 
-    <!-- ═══════════ ASSESSMENT PANEL (shared) ═══════════ -->
+    <!-- ═══════════ ASSESSMENT PANEL ═══════════ -->
     <div class="drill-panel" id="panel-assessment">
       <div class="kpi-strip">
         <div class="kpi c-indigo"><div class="kpi-lbl">ASSESSMENT</div><div class="kpi-val" id="s3-name" style="font-size:10px;line-height:1.3">—</div></div>
         <div class="kpi c-green"><div class="kpi-lbl">CLASS AVG</div><div class="kpi-val" id="s3-avg">—</div></div>
         <div class="kpi c-red"><div class="kpi-lbl">BELOW PASS</div><div class="kpi-val" id="s3-fail">—</div></div>
         <div class="kpi c-amber"><div class="kpi-lbl">QUESTIONS</div><div class="kpi-val">20</div></div>
-        <div class="kpi c-blue"><div class="kpi-lbl">STUDENTS</div><div class="kpi-val">42</div></div>
+        <div class="kpi c-blue"><div class="kpi-lbl">STUDENTS</div><div class="kpi-val" id="s3-students">42</div></div>
         <div class="kpi c-indigo"><div class="kpi-lbl">SCHOOL AVG</div><div class="kpi-val">72.4%</div></div>
         <div class="kpi c-amber"><div class="kpi-lbl">GRADES</div><div class="kpi-val">8</div></div>
         <div class="kpi c-red"><div class="kpi-lbl">HIGH RISK</div><div class="kpi-val" id="s3-highrisk">—</div></div>
@@ -872,7 +851,6 @@ body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--text);min
       </div>
     </div>
 
-    <!-- Panels placeholder for strand/standard/question drill (admin/teacher) -->
     <div class="drill-panel" id="panel-strand"><div class="access-denied"><div class="ad-icon">🧩</div><div class="ad-title">Strand Analysis</div><div class="ad-sub">Navigate from an assessment to drill into strand-level data.</div></div></div>
     <div class="drill-panel" id="panel-standard"><div class="access-denied"><div class="ad-icon">📐</div><div class="ad-title">Standard Analysis</div><div class="ad-sub">Select a strand first to view standards.</div></div></div>
     <div class="drill-panel" id="panel-question"><div class="access-denied"><div class="ad-icon">❓</div><div class="ad-title">Question Analysis</div><div class="ad-sub">Select a standard first to view question details.</div></div></div>
@@ -880,7 +858,7 @@ body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--text);min
 
   </div>
 </div>
-</div><!-- /app -->
+</div>
 
 <!-- ─── MODALS ─── -->
 <div class="modal-wrap" id="chat-modal" onclick="if(event.target===this)closeModal('chat-modal')">
@@ -933,17 +911,14 @@ body{font-family:system-ui,sans-serif;background:var(--bg);color:var(--text);min
 </div>
 
 <script>
-// ═══════════════════════════════════════════════
-// DATA
-// ═══════════════════════════════════════════════
 const FIRST=['Rahul','Priya','Arjun','Kavya','Dev','Sneha','Rohan','Ananya','Vikram','Meera','Suresh','Deepa','Amit','Pooja','Karan','Riya','Nikhil','Simran','Aditya','Nandini','Harsh','Divya','Siddharth','Preeti','Mohit','Swati','Vivek','Anusha','Rajat','Komal','Akash','Jyoti','Abhishek','Shruti','Varun','Pallavi','Gaurav','Neha','Manish','Rekha'];
 const LAST=['Kumar','Mehta','Sharma','Singh','Narayan','Patel','Gupta','Rao','Nair','Joshi','Verma','Reddy','Malhotra','Pandey','Mishra','Kaur','Tiwari','Bajaj','Chopra','Das'];
-const SUBJECTS=['Mathematics','Science','English','Hindi','Physics','Computer Sci.'];
+const SUBJECTS_LIST=['Mathematics','Science','English','Hindi','Physics','Computer Sci.'];
 const SUBJECT_AVG={Mathematics:58,Science:65,English:78,Hindi:81,Physics:62,'Computer Sci.':76};
 const SUBJECT_COLORS={Mathematics:'#ef4444',Science:'#f59e0b',English:'#6366f1',Hindi:'#8b5cf6',Physics:'#06b6d4','Computer Sci.':'#3b82f6'};
 const GRADES=['Grade 5','Grade 6','Grade 7','Grade 8','Grade 9','Grade 10','Grade 11','Grade 12'];
 const BG_COLORS=['#ef4444','#f59e0b','#6366f1','#10b981','#06b6d4','#ec4899','#8b5cf6','#3b82f6','#f97316','#14b8a6'];
-const ALL_SUBJECTS=[{n:'Mathematics',avg:58,fail:33,color:'#ef4444'},{n:'Science',avg:65,fail:24,color:'#f59e0b'},{n:'English',avg:78,fail:14,color:'#6366f1'},{n:'Social Sci.',avg:74,fail:18,color:'#10b981'},{n:'Hindi',avg:81,fail:11,color:'#8b5cf6'},{n:'Physics',avg:62,fail:28,color:'#06b6d4'},{'n':'Computer Sci.',avg:76,fail:15,color:'#3b82f6'}];
+const ALL_SUBJECTS=[{n:'Mathematics',avg:58,fail:33,color:'#ef4444'},{n:'Science',avg:65,fail:24,color:'#f59e0b'},{n:'English',avg:78,fail:14,color:'#6366f1'},{n:'Social Sci.',avg:74,fail:18,color:'#10b981'},{n:'Hindi',avg:81,fail:11,color:'#8b5cf6'},{n:'Physics',avg:62,fail:28,color:'#06b6d4'},{n:'Computer Sci.',avg:76,fail:15,color:'#3b82f6'}];
 
 function seededRand(seed){let s=seed;return()=>{s=(s*1103515245+12345)&0x7fffffff;return s/0x7fffffff};}
 
@@ -951,7 +926,7 @@ const ALL_STUDENTS=(()=>{
   const arr=[],r=seededRand(42);
   for(let i=0;i<300;i++){
     const fn=FIRST[Math.floor(r()*FIRST.length)],ln=LAST[Math.floor(r()*LAST.length)];
-    const grade=GRADES[Math.floor(r()*GRADES.length)],subject=SUBJECTS[Math.floor(r()*SUBJECTS.length)];
+    const grade=GRADES[Math.floor(r()*GRADES.length)],subject=SUBJECTS_LIST[Math.floor(r()*SUBJECTS_LIST.length)];
     const score=Math.min(100,Math.max(10,Math.round(SUBJECT_AVG[subject]+(r()-.5)*40)));
     const correct=Math.round(score/5),wrong=20-correct;
     const risk=score<45?'High':score<65?'Med':'Low';
@@ -962,34 +937,32 @@ const ALL_STUDENTS=(()=>{
   return arr;
 })();
 
-// Teacher definitions — each teacher has multiple classes (subjects × grades)
 const ALL_TEACHERS=[
-  {id:'teacher001',name:'Ms. Priya Sharma',init:'PS',avg:64,risk:14,highrisk:6,bg:'#6366f1',
-   classes:[{subj:'Mathematics',grade:'Grade 8',avg:64},{subj:'Mathematics',grade:'Grade 7',avg:61},{subj:'Mathematics',grade:'Grade 9',avg:67}]},
-  {id:'teacher002',name:'Mr. Rajesh Kumar',init:'RK',avg:71,risk:8,highrisk:3,bg:'#f59e0b',
-   classes:[{subj:'Science',grade:'Grade 7',avg:71},{subj:'Science',grade:'Grade 8',avg:68},{subj:'Physics',grade:'Grade 9',avg:65}]},
-  {id:'teacher003',name:'Ms. Anita Patel',init:'AP',avg:78,risk:5,highrisk:1,bg:'#10b981',
-   classes:[{subj:'English',grade:'Grade 9',avg:78},{subj:'English',grade:'Grade 10',avg:80},{subj:'English',grade:'Grade 8',avg:75}]},
-  {id:'teacher004',name:'Mr. Suresh Nair',init:'SN',avg:81,risk:3,highrisk:0,bg:'#8b5cf6',
-   classes:[{subj:'Hindi',grade:'Grade 6',avg:81},{subj:'Hindi',grade:'Grade 7',avg:79},{subj:'Hindi',grade:'Grade 8',avg:83}]},
-  {id:'teacher005',name:'Ms. Kavita Singh',init:'KS',avg:62,risk:11,highrisk:4,bg:'#06b6d4',
-   classes:[{subj:'Physics',grade:'Grade 10',avg:62},{subj:'Physics',grade:'Grade 11',avg:60},{subj:'Science',grade:'Grade 6',avg:69}]},
-  {id:'teacher006',name:'Mr. Arjun Mehta',init:'AM',avg:76,risk:4,highrisk:1,bg:'#3b82f6',
-   classes:[{subj:'Computer Sci.',grade:'Grade 11',avg:76},{subj:'Computer Sci.',grade:'Grade 10',avg:74},{subj:'Mathematics',grade:'Grade 11',avg:72}]},
+  {id:'teacher001',name:'Ms. Priya Sharma',init:'PS',bg:'#6366f1',classes:[{subj:'Mathematics',grade:'Grade 8',avg:64},{subj:'Mathematics',grade:'Grade 7',avg:61},{subj:'Mathematics',grade:'Grade 9',avg:67}]},
+  {id:'teacher002',name:'Mr. Rajesh Kumar',init:'RK',bg:'#f59e0b',classes:[{subj:'Science',grade:'Grade 7',avg:71},{subj:'Science',grade:'Grade 8',avg:68},{subj:'Physics',grade:'Grade 9',avg:65}]},
+  {id:'teacher003',name:'Ms. Anita Patel',init:'AP',bg:'#10b981',classes:[{subj:'English',grade:'Grade 9',avg:78},{subj:'English',grade:'Grade 10',avg:80},{subj:'English',grade:'Grade 8',avg:75}]},
+  {id:'teacher004',name:'Mr. Suresh Nair',init:'SN',bg:'#8b5cf6',classes:[{subj:'Hindi',grade:'Grade 6',avg:81},{subj:'Hindi',grade:'Grade 7',avg:79},{subj:'Hindi',grade:'Grade 8',avg:83}]},
+  {id:'teacher005',name:'Ms. Kavita Singh',init:'KS',bg:'#06b6d4',classes:[{subj:'Physics',grade:'Grade 10',avg:62},{subj:'Physics',grade:'Grade 11',avg:60},{subj:'Science',grade:'Grade 6',avg:69}]},
+  {id:'teacher006',name:'Mr. Arjun Mehta',init:'AM',bg:'#3b82f6',classes:[{subj:'Computer Sci.',grade:'Grade 11',avg:76},{subj:'Computer Sci.',grade:'Grade 10',avg:74},{subj:'Mathematics',grade:'Grade 11',avg:72}]},
 ];
-// Back-compat: give each teacher a primary subj/grade (first class)
-ALL_TEACHERS.forEach(t=>{t.subj=t.classes[0].subj;t.grade=t.classes[0].grade;});
+ALL_TEACHERS.forEach(t=>{t.avg=Math.round(t.classes.reduce((s,c)=>s+c.avg,0)/t.classes.length);t.subj=t.classes[0].subj;t.grade=t.classes[0].grade;});
 
-// Fixed student list for login — use real names guaranteed to be in ALL_STUDENTS
 const LOGIN_STUDENTS=(()=>{
-  const names=['Rahul Kumar','Priya Mehta','Arjun Sharma','Kavya Singh','Dev Narayan'];
-  return names.map(n=>{
-    const s=ALL_STUDENTS.find(x=>x.name===n)||ALL_STUDENTS[names.indexOf(n)];
+  const pairs=[['Rahul','Kumar'],['Priya','Mehta'],['Arjun','Sharma'],['Kavya','Singh'],['Dev','Narayan']];
+  return pairs.map(([fn,ln],idx)=>{
+    const name=fn+' '+ln;
+    const s=ALL_STUDENTS.find(x=>x.name===name)||ALL_STUDENTS[idx];
     return {id:'stu_'+s.id,name:s.name,display:s.name,init:s.init,bg:s.bg,studentRef:s};
   });
 })();
 
-// Users DB (role → credentials)
+document.addEventListener('DOMContentLoaded',()=>{
+  const s1=LOGIN_STUDENTS[0];const s2=LOGIN_STUDENTS[1];
+  const c1=document.getElementById('demo-stu1');const c2=document.getElementById('demo-stu2');
+  if(c1){c1.textContent='🎓 '+s1.name.split(' ')[0];c1.onclick=()=>fillDemo('student',s1.name);}
+  if(c2){c2.textContent='🎓 '+s2.name.split(' ')[0];c2.onclick=()=>fillDemo('student',s2.name);}
+});
+
 const USERS_DB={
   admin:[{id:'admin001',name:'Admin',display:'School Admin',init:'SA',bg:'#6366f1'}],
   teacher:ALL_TEACHERS.map(t=>({id:t.id,name:t.name,display:t.name,init:t.init,bg:t.bg,teacherRef:t})),
@@ -1000,10 +973,7 @@ const USERS_DB={
   ]
 };
 
-// ═══════════════════════════════════════════════
-// SESSION
-// ═══════════════════════════════════════════════
-let SESSION={role:null,user:null,teacher:null,student:null,childStudent:null};
+let SESSION={role:null,user:null,teacher:null,student:null,childStudent:null,drillSubject:null,drillGrade:null,drillTeacher:null};
 
 const TC='rgba(100,116,139,.75)',GC='rgba(99,102,241,.07)';
 const TIP={backgroundColor:'#fff',borderColor:'rgba(99,102,241,.2)',borderWidth:1,titleColor:'#4f46e5',bodyColor:'#64748b',titleFont:{family:'monospace',size:10},bodyFont:{family:'monospace',size:10},padding:8};
@@ -1019,41 +989,27 @@ function selectRole(r){
   const hints={admin:'admin001',teacher:'Ms. Priya Sharma',student:'Rahul Kumar',parent:'parent.rahul'};
   document.getElementById('login-id').placeholder=`e.g. ${hints[r]}`;
 }
-function fillDemo(role,id){
-  selectRole(role);
-  document.getElementById('login-id').value=id;
-}
+function fillDemo(role,id){selectRole(role);document.getElementById('login-id').value=id;}
 
 function doLogin(){
   const raw=document.getElementById('login-id').value.trim().toUpperCase();
-  const errEl=document.getElementById('login-err');
-  errEl.style.display='none';
-  const role=selectedRole;
-  const list=USERS_DB[role]||[];
+  const errEl=document.getElementById('login-err');errEl.style.display='none';
+  const role=selectedRole;const list=USERS_DB[role]||[];
   let found=list.find(u=>u.id.toUpperCase()===raw||u.name.toUpperCase()===raw);
-  // Admin fallback
-  if(!found&&role==='admin'&&(raw==='ADMIN001'||raw==='ADMIN'))found=list[0];
-  // Student: also search ALL_STUDENTS by name for any student
+  if(!found&&role==='admin'&&(raw==='ADMIN001'||raw==='ADMIN'||raw===''))found=list[0];
   if(!found&&role==='student'){
     const s=ALL_STUDENTS.find(x=>x.name.toUpperCase()===raw||('STU_'+x.id)===raw);
     if(s)found={id:'stu_'+s.id,name:s.name,display:s.name,init:s.init,bg:s.bg,studentRef:s};
+    if(!found&&raw==='')found=LOGIN_STUDENTS[0];
+    if(!found)found=LOGIN_STUDENTS.find(u=>u.name.toUpperCase().includes(raw)||raw.includes(u.name.toUpperCase().split(' ')[0]));
   }
-  // Teacher: also match by first/last name fragment
-  if(!found&&role==='teacher'){
-    found=list.find(u=>u.name.toUpperCase().includes(raw)||raw.includes(u.name.toUpperCase().split(' ').pop()));
-  }
+  if(!found&&role==='teacher'){found=list.find(u=>u.name.toUpperCase().includes(raw)||raw.includes(u.name.toUpperCase().split(' ').pop()));}
+  if(!found&&role==='parent'){if(raw==='')found=list[0];else found=list.find(u=>u.id.toUpperCase()===raw||u.name.toUpperCase().includes(raw));}
   if(!found){errEl.style.display='block';return;}
   SESSION.role=role;SESSION.user=found;
-  if(role==='teacher'){
-    SESSION.teacher=found.teacherRef;
-    // Init filter to first class
-    SESSION._teacherFilter={subj:found.teacherRef.classes[0].subj,grade:found.teacherRef.classes[0].grade};
-  }
+  if(role==='teacher'){SESSION.teacher=found.teacherRef;SESSION._teacherFilter={...found.teacherRef.classes[0]};}
   if(role==='student')SESSION.student=found.studentRef;
-  if(role==='parent'){
-    const childName=found.childName||'';
-    SESSION.childStudent=ALL_STUDENTS.find(s=>s.name===childName)||ALL_STUDENTS[0];
-  }
+  if(role==='parent'){SESSION.childStudent=ALL_STUDENTS.find(s=>s.name===(found.childName||''))||ALL_STUDENTS[0];}
   launchApp();
 }
 
@@ -1068,14 +1024,13 @@ function launchApp(){
 }
 
 function doLogout(){
-  SESSION={role:null,user:null,teacher:null,student:null,childStudent:null};
+  SESSION={role:null,user:null,teacher:null,student:null,childStudent:null,drillSubject:null,drillGrade:null,drillTeacher:null};
   document.getElementById('app-shell').style.display='none';
   document.getElementById('login-screen').style.display='flex';
   document.getElementById('login-id').value='';
   closeModal('settings-modal');
 }
 
-// ─── UI ROLE SETUP ───
 function setupRoleUI(){
   const u=SESSION.user,r=SESSION.role;
   const av=document.getElementById('topbar-avatar');
@@ -1088,40 +1043,28 @@ function setupRoleUI(){
   const badgeCls={admin:'rb-admin',teacher:'rb-teacher',student:'rb-student',parent:'rb-parent'};
   const badgeTxt={admin:'🏫 Admin',teacher:'👨‍🏫 Teacher',student:'🎓 Student',parent:'👨‍👩‍👧 Parent'};
   document.getElementById('topbar-role-badge').innerHTML=`<span class="role-badge ${badgeCls[r]}">${badgeTxt[r]}</span>`;
-  // Sidebar
-  const parentOnlyBtns=['sib-parent-report','sib-parent-ai'];
-  const adminOnlyBtns=['sib-lessons'];
   if(r==='parent'){
-    parentOnlyBtns.forEach(id=>{const el=document.getElementById(id);if(el)el.classList.remove('hidden')});
+    ['sib-parent-report','sib-parent-ai'].forEach(id=>{const el=document.getElementById(id);if(el)el.classList.remove('hidden')});
     document.getElementById('sib-chat').style.display='none';
     document.getElementById('sib-lessons').classList.add('hidden');
   }
-  // Breadcrumb visibility
   const drillBar=document.getElementById('drill-bar');
-  if(r==='student'||r==='parent'){drillBar.style.display='none';}
-  else{drillBar.style.display='flex';}
-  // Crumb restrictions by role — teacher sees full drill but subject+grade are pre-filtered
+  drillBar.style.display=(r==='student'||r==='parent')?'none':'flex';
   if(r==='teacher'){
-    // Hide subject & grade selector crumbs (teacher is locked to their own)
-    ['db-subject','db-grade','sep-sub','sep-grd'].forEach(id=>{
-      const el=document.getElementById(id);
-      if(el){el.classList.add('hidden-crumb');}
-    });
+    ['db-subject','db-grade','sep-sub','sep-grd'].forEach(id=>{const el=document.getElementById(id);if(el)el.classList.add('hidden-crumb');});
   }
-  // Report btn
   if(r==='student'||r==='parent'){
     document.getElementById('report-btn').style.display='none';
     document.getElementById('export-btn').style.display='none';
   }
 }
 
-// ─── BREADCRUMB ───
-const VIEW_ORDER=['school','subject','grade','teacher','assessment','strand','standard','question','student'];
+const VIEW_ORDER=['school','subject','grade','teacher-select','assessment','strand','standard','question','student'];
 const DB_IDS=['db-school','db-subject','db-grade','db-teacher','db-assessment','db-strand','db-standard','db-question','db-student'];
 let maxUnlocked=0;
 
 function updateBreadcrumb(view){
-  const curIdx=VIEW_ORDER.indexOf(view);
+  const curIdx=VIEW_ORDER.indexOf(view);if(curIdx<0)return;
   DB_IDS.forEach((id,i)=>{
     const el=document.getElementById(id);if(!el)return;
     el.classList.remove('active','done','locked');
@@ -1130,45 +1073,35 @@ function updateBreadcrumb(view){
     else el.classList.add('locked');
   });
 }
+
 function showPanel(view){
   document.querySelectorAll('.drill-panel').forEach(p=>p.classList.remove('active'));
-  const p=document.getElementById('panel-'+view);
+  const panelId='panel-'+(view==='teacher-select'?'teacher-select':(SESSION.role==='teacher'&&view==='teacher'?'teacher':view));
+  const p=document.getElementById('panel-'+view)||document.getElementById(panelId);
   if(p){p.classList.add('active');setTimeout(()=>animBars(p),80);}
   updateBreadcrumb(view);
 }
+
 function navCrumb(view){
-  if(view==='school'){
-    if(SESSION.role==='teacher')renderTeacherHome();
-    else renderAdminHome();
-  }
-  else if(view==='teacher'){
-    if(SESSION.role==='teacher')renderTeacherHome();
-    else showPanel(view);
-  }
-  else showPanel(view);
+  if(view==='school'){if(SESSION.role==='teacher')renderTeacherHome();else renderAdminHome();}
+  else if(view==='subject'){if(SESSION.role==='admin')renderSubjectPanel();}
+  else if(view==='grade'){if(SESSION.role==='admin'&&SESSION.drillSubject)renderGradePanel(SESSION.drillSubject);}
+  else if(view==='teacher'){if(SESSION.role==='teacher')renderTeacherHome();else if(SESSION.role==='admin'&&SESSION.drillGrade)renderTeacherSelectPanel(SESSION.drillSubject,SESSION.drillGrade);}
+  else{showPanel(view);}
 }
 
-// ─── SIDEBAR NAV ───
 function sibNav(el,target){
-  document.querySelectorAll('.sib').forEach(s=>s.classList.remove('on'));
-  el.classList.add('on');
-  if(target==='home'){
-    if(SESSION.role==='admin')renderAdminHome();
-    else if(SESSION.role==='teacher')renderTeacherHome();
-    else if(SESSION.role==='student')renderStudentSelf();
-    else if(SESSION.role==='parent')renderParentDashboard();
-  }else if(target==='parent-report'){showParentTab('report',document.getElementById('ptab-report'));renderParentDashboard();}
-  else if(target==='parent-ai'){showParentTab('ai',document.getElementById('ptab-ai'));renderParentDashboard();}
+  document.querySelectorAll('.sib').forEach(s=>s.classList.remove('on'));el.classList.add('on');
+  if(target==='home'){if(SESSION.role==='admin')renderAdminHome();else if(SESSION.role==='teacher')renderTeacherHome();else if(SESSION.role==='student')renderStudentSelf();else if(SESSION.role==='parent')renderParentDashboard();}
+  else if(target==='parent-report'){renderParentDashboard();showParentTab('report',document.getElementById('ptab-report'));}
+  else if(target==='parent-ai'){renderParentDashboard();showParentTab('ai',document.getElementById('ptab-ai'));}
 }
 
 function openModal(id){document.getElementById(id)?.classList.add('open');}
 function closeModal(id){document.getElementById(id)?.classList.remove('open');}
 
-// ═══════════════════════════════════════════════
-// ADMIN HOME
-// ═══════════════════════════════════════════════
 function renderAdminHome(){
-  maxUnlocked=VIEW_ORDER.length-1;
+  maxUnlocked=0;
   const highCount=ALL_STUDENTS.filter(s=>s.risk==='High').length;
   const medCount=ALL_STUDENTS.filter(s=>s.risk==='Med').length;
   document.getElementById('home-highrisk').textContent=highCount;
@@ -1178,12 +1111,19 @@ function renderAdminHome(){
     <div><div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:2px"><span style="color:#ef4444">High Risk</span><span style="font-family:monospace;color:#ef4444">${highCount}</span></div><div style="height:4px;background:rgba(239,68,68,.1);border-radius:20px;overflow:hidden"><div style="height:100%;width:${Math.min(100,highCount/3)}%;background:#ef4444;border-radius:20px"></div></div></div>
     <div><div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:2px"><span style="color:#b45309">Medium</span><span style="font-family:monospace;color:#b45309">${medCount}</span></div><div style="height:4px;background:rgba(245,158,11,.1);border-radius:20px;overflow:hidden"><div style="height:100%;width:${Math.min(100,medCount/3)}%;background:#f59e0b;border-radius:20px"></div></div></div>
     <div><div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:2px"><span style="color:#059669">On Track</span><span style="font-family:monospace;color:#059669">${300-highCount-medCount}</span></div><div style="height:4px;background:rgba(16,185,129,.1);border-radius:20px;overflow:hidden"><div style="height:100%;width:${Math.min(100,(300-highCount-medCount)/3)}%;background:#10b981;border-radius:20px"></div></div></div>`;
-  document.getElementById('home-subj-bars').innerHTML=ALL_SUBJECTS.map(s=>`<div class="subj-row"><div class="sn">${s.n}</div><div class="bt"><div class="bf" data-w="${s.avg}" style="background:${s.color}"></div></div><div class="bpct" style="color:${s.color}">${s.avg}%</div></div>`).join('');
+  document.getElementById('home-subj-bars').innerHTML=ALL_SUBJECTS.map(s=>`
+    <div class="subj-row" style="cursor:pointer" onclick="selectSubjectDrill('${s.n}')">
+      <div class="sn">${s.n}</div>
+      <div class="bt"><div class="bf" data-w="${s.avg}" style="background:${s.color}"></div></div>
+      <div class="bpct" style="color:${s.color}">${s.avg}%</div>
+      <div style="font-size:9px;font-family:monospace;color:var(--muted2);width:40px;text-align:right">›</div>
+    </div>`).join('');
   buildHomeStudentTable();
   setTimeout(()=>{
     mkChart('ch-wf',{type:'bar',data:{labels:['Q1 24','Q2 24','Q3 24','Q4 24','Q1 25','Q2 25'],datasets:[{data:[68,71,69,73,70,72],backgroundColor:['rgba(99,102,241,.7)','rgba(99,102,241,.7)','rgba(239,68,68,.6)','rgba(16,185,129,.7)','rgba(239,68,68,.6)','rgba(16,185,129,.7)'],borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:TIP},scales:{x:{grid:{color:GC},ticks:{color:TC,font:{family:'monospace',size:9}}},y:{min:55,max:85,grid:{color:GC},ticks:{color:TC,font:{family:'monospace',size:9}}}}}});
     mkChart('ch-rd',{type:'doughnut',data:{labels:['High','Med','Low'],datasets:[{data:[highCount,medCount,300-highCount-medCount],backgroundColor:['rgba(239,68,68,.8)','rgba(245,158,11,.7)','rgba(16,185,129,.65)'],borderColor:'#fff',borderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,cutout:'68%',plugins:{legend:{display:false},tooltip:TIP}}});
   },100);
+  animBars(document.getElementById('panel-school'));
   showPanel('school');
 }
 
@@ -1191,8 +1131,7 @@ let homeRiskFilter='all';
 function homeFilterStudents(f,btn){
   homeRiskFilter=f;
   document.querySelectorAll('#panel-school .jtag').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  buildHomeStudentTable();
+  btn.classList.add('active');buildHomeStudentTable();
 }
 function buildHomeStudentTable(){
   let list=[...ALL_STUDENTS];
@@ -1212,149 +1151,164 @@ function buildHomeStudentTable(){
   setTimeout(()=>animBars(tb),200);
 }
 
-function viewStudentDetail(id){
-  const s=ALL_STUDENTS.find(x=>x.id===id);if(!s)return;
-  alert(`Student: ${s.name}\nGrade: ${s.grade} · Subject: ${s.subject}\nScore: ${s.score}% · Risk: ${s.risk}\n\n(Full student drill panel available in original design)`);
+function viewStudentDetail(id){const s=ALL_STUDENTS.find(x=>x.id===id);if(!s)return;drillToStudentDetail(s);}
+
+function selectSubjectDrill(subjName){SESSION.drillSubject=subjName;maxUnlocked=1;renderGradePanel(subjName);}
+
+function renderSubjectPanel(){
+  maxUnlocked=0;
+  const highCount=ALL_STUDENTS.filter(s=>s.risk==='High').length;
+  const medCount=ALL_STUDENTS.filter(s=>s.risk==='Med').length;
+  document.getElementById('subj-highrisk').textContent=highCount;
+  document.getElementById('subj-medrisk').textContent=medCount;
+  const subjIcos={Mathematics:'📐',Science:'🔬',English:'📖','Social Sci.':'🌍',Hindi:'📝',Physics:'⚡','Computer Sci.':'💻'};
+  document.getElementById('subj-selector-grid').innerHTML=ALL_SUBJECTS.map(s=>`
+    <div class="selector-card" onclick="selectSubjectDrill('${s.n}')">
+      <div class="selector-ico" style="background:${s.color}">${subjIcos[s.n]||'📚'}</div>
+      <div class="selector-name">${s.n}</div>
+      <div class="selector-sub">Avg: ${s.avg}% · Fail: ${s.fail}%</div>
+      <div class="selector-bar"><div class="selector-fill" data-w="${s.avg}" style="background:${s.color}"></div></div>
+    </div>`).join('');
+  setTimeout(()=>animBars(document.getElementById('panel-subject')),100);
+  showPanel('subject');
 }
 
-// ═══════════════════════════════════════════════
-// TEACHER HOME — full drill-down, multi-class filter
-// ═══════════════════════════════════════════════
-function renderTeacherHome(){
-  const t=SESSION.teacher;if(!t)return;
-  maxUnlocked=VIEW_ORDER.length-1;
-
-  // Build class filter tabs
-  const tabBar=document.getElementById('t-class-tabs');
-  if(tabBar){
-    tabBar.innerHTML=t.classes.map((c,i)=>`
-      <button class="jtag${i===0?' active':''}" onclick="switchTeacherClass(${i},this)">
-        ${c.subj} · ${c.grade}
-      </button>`).join('');
-  }
-
-  // Init filter if not set
-  if(!SESSION._teacherFilter)SESSION._teacherFilter={...t.classes[0]};
-
-  applyTeacherFilter();
+function renderGradePanel(subjName){
+  SESSION.drillSubject=subjName;maxUnlocked=2;
+  const subj=ALL_SUBJECTS.find(s=>s.n===subjName)||{avg:65,fail:25,color:'#6366f1',n:subjName};
+  const stuForSubj=ALL_STUDENTS.filter(s=>s.subject===subjName||s.subject===subjName.split(' ')[0]);
+  const highCount=stuForSubj.filter(s=>s.risk==='High').length;
+  const medCount=stuForSubj.filter(s=>s.risk==='Med').length;
+  document.getElementById('gp-subject').textContent=subjName;
+  document.getElementById('gp-avg').textContent=subj.avg+'%';
+  document.getElementById('gp-highrisk').textContent=highCount;
+  document.getElementById('gp-medrisk').textContent=medCount;
+  document.getElementById('gp-students').textContent=stuForSubj.length||Math.round(300/7);
+  document.getElementById('gp-assess').textContent=Math.round(318/7);
+  document.getElementById('gp-fail').textContent=subj.fail+'%';
+  document.getElementById('grade-panel-title').textContent='Select a grade — '+subjName;
+  const gradeData=GRADES.map(g=>{
+    const r=seededRand((subjName+g).split('').reduce((a,c)=>a+c.charCodeAt(0),0));
+    const avg=Math.min(100,Math.max(30,Math.round(subj.avg+(r()-.5)*20)));
+    const gStu=ALL_STUDENTS.filter(s=>s.grade===g);
+    const risk=gStu.filter(s=>s.risk==='High').length;
+    return {g,avg,risk};
+  });
+  document.getElementById('grade-selector-grid').innerHTML=gradeData.map(d=>`
+    <div class="grade-card" onclick="selectGradeDrill('${d.g}')">
+      <div class="grade-name">${d.g.replace('Grade ','G')}</div>
+      <div class="grade-avg">${d.avg}% avg</div>
+      <div class="grade-risk" style="color:${d.risk>3?'#ef4444':'#10b981'}">${d.risk} at risk</div>
+      <div class="grade-mini-bar"><div class="grade-mini-fill" data-w="${d.avg}"></div></div>
+    </div>`).join('');
+  setTimeout(()=>{
+    animBars(document.getElementById('panel-grade'));
+    mkChart('ch-grade-bar',{type:'bar',data:{labels:gradeData.map(d=>d.g.replace('Grade ','')),datasets:[{data:gradeData.map(d=>d.avg),backgroundColor:subj.color+'bb',borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:TIP},scales:{x:{grid:{color:GC},ticks:{color:TC,font:{family:'monospace',size:9}}},y:{min:30,max:100,grid:{color:GC},ticks:{color:TC,font:{family:'monospace',size:9}}}}}});
+    mkChart('ch-grade-risk',{type:'bar',data:{labels:gradeData.map(d=>d.g.replace('Grade ','')),datasets:[{label:'High',data:gradeData.map(d=>d.risk),backgroundColor:'rgba(239,68,68,.7)',borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:TIP},scales:{x:{grid:{color:GC},ticks:{color:TC,font:{family:'monospace',size:9}}},y:{grid:{color:GC},ticks:{color:TC,font:{family:'monospace',size:9}}}}}});
+  },100);
+  const dbSubj=document.getElementById('db-subject');
+  if(dbSubj)dbSubj.querySelector('.drumb-txt').textContent=subjName.split(' ')[0];
+  showPanel('grade');
 }
 
-function switchTeacherClass(idx,btn){
-  const t=SESSION.teacher;if(!t)return;
-  document.querySelectorAll('#t-class-tabs .jtag').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  SESSION._teacherFilter={...t.classes[idx]};
-  applyTeacherFilter();
+function selectGradeDrill(grade){SESSION.drillGrade=grade;maxUnlocked=3;renderTeacherSelectPanel(SESSION.drillSubject,grade);}
+
+function renderTeacherSelectPanel(subj,grade){
+  SESSION.drillSubject=subj;SESSION.drillGrade=grade;maxUnlocked=3;
+  const matchTeachers=ALL_TEACHERS.filter(t=>t.classes.some(c=>c.subj===subj&&c.grade===grade));
+  const allTeachers=matchTeachers.length?matchTeachers:ALL_TEACHERS.slice(0,2);
+  const students=getStudentsForClass(subj,grade);
+  const highCount=students.filter(s=>s.risk==='High').length;
+  const medCount=students.filter(s=>s.risk==='Med').length;
+  const avgScore=Math.round(students.reduce((a,s)=>a+s.score,0)/Math.max(1,students.length));
+  document.getElementById('tsel-subject').textContent=subj;
+  document.getElementById('tsel-grade').textContent=grade;
+  document.getElementById('tsel-count').textContent=allTeachers.length;
+  document.getElementById('tsel-highrisk').textContent=highCount;
+  document.getElementById('tsel-medrisk').textContent=medCount;
+  document.getElementById('tsel-students').textContent=students.length;
+  document.getElementById('tsel-avg').textContent=avgScore+'%';
+  document.getElementById('tsel-title').textContent=`Teachers — ${subj} · ${grade}`;
+  document.getElementById('tsel-grid').innerHTML=allTeachers.map(t=>{
+    const tc=t.classes.find(c=>c.subj===subj&&c.grade===grade)||t.classes[0];
+    return `<div class="selector-card" onclick="selectTeacherDrill('${t.id}')">
+      <div class="selector-ico" style="background:${t.bg};font-size:16px">👨‍🏫</div>
+      <div class="selector-name">${t.name}</div>
+      <div class="selector-sub">${subj} · ${grade}</div>
+      <div class="selector-pills"><span class="pill pill-a">Avg: ${tc.avg}%</span></div>
+      <div class="selector-bar"><div class="selector-fill" data-w="${tc.avg}" style="background:${t.bg}"></div></div>
+    </div>`;
+  }).join('');
+  setTimeout(()=>animBars(document.getElementById('panel-teacher-select')),100);
+  const dbGrade=document.getElementById('db-grade');
+  if(dbGrade)dbGrade.querySelector('.drumb-txt').textContent=grade.replace('Grade ','G');
+  showPanel('teacher-select');
 }
 
-function applyTeacherFilter(){
-  const t=SESSION.teacher;if(!t)return;
-  const {subj,grade,avg:classAvg}=SESSION._teacherFilter;
-  const effectiveAvg=classAvg||t.avg;
+function selectTeacherDrill(teacherId){
+  const t=ALL_TEACHERS.find(x=>x.id===teacherId);if(!t)return;
+  SESSION.drillTeacher=t;maxUnlocked=4;
+  const tc=t.classes.find(c=>c.subj===SESSION.drillSubject&&c.grade===SESSION.drillGrade)||t.classes[0];
+  const students=getStudentsForClass(tc.subj,tc.grade,tc.avg);
+  const dbTeacher=document.getElementById('db-teacher');
+  if(dbTeacher)dbTeacher.querySelector('.drumb-txt').textContent=t.name.split(' ').slice(-1)[0];
+  showAssessmentPanel(t,students,tc.avg);
+}
 
-  // Label
-  const lbl=document.getElementById('t-filter-label');
-  if(lbl)lbl.textContent=`${subj} · ${grade}`;
-
-  // Get students for this subject+grade from ALL_STUDENTS
-  let myStudents=ALL_STUDENTS.filter(s=>s.subject===subj&&s.grade===grade);
-  // Supplement with seeded synthetic students to ensure good count
-  if(myStudents.length<10){
+function getStudentsForClass(subj,grade,avgOverride){
+  let students=ALL_STUDENTS.filter(s=>s.subject===subj&&s.grade===grade);
+  const avg=avgOverride||(ALL_SUBJECTS.find(s=>s.n===subj)||{avg:65}).avg;
+  if(students.length<10){
     const seed=(subj+grade).split('').reduce((a,c)=>a+c.charCodeAt(0),0);
     const r=seededRand(seed*17+3);
-    const synth=[...Array(Math.max(0,35-myStudents.length))].map((_,i)=>{
+    const synth=[...Array(Math.max(0,35-students.length))].map((_,i)=>{
       const fn=FIRST[Math.floor(r()*FIRST.length)],ln=LAST[Math.floor(r()*LAST.length)];
-      const score=Math.min(100,Math.max(10,Math.round(effectiveAvg+(r()-.5)*36)));
+      const score=Math.min(100,Math.max(10,Math.round(avg+(r()-.5)*36)));
       const correct=Math.round(score/5),wrong=20-correct;
       const risk=score<45?'High':score<65?'Med':'Low';
       const tr=['up','dn','flat'][score<50?Math.floor(r()*2)+1:Math.floor(r()*2)];
       const bg=BG_COLORS[Math.floor(r()*BG_COLORS.length)];
       return {id:9000+seed+i,name:fn+' '+ln,init:fn[0]+ln[0],grade,subject:subj,score,correct,wrong,risk,tr,bg};
     });
-    myStudents=[...myStudents,...synth];
+    students=[...students,...synth];
   }
-  SESSION._teacherStudents=myStudents;
-  SESSION._teacherSubj=subj;
-  SESSION._teacherGrade=grade;
-  SESSION._teacherAvg=effectiveAvg;
-
-  const myHigh=myStudents.filter(s=>s.risk==='High').length;
-  const myMed=myStudents.filter(s=>s.risk==='Med').length;
-
-  // KPIs
-  document.getElementById('t1-name').textContent=t.name;
-  document.getElementById('t1-avg').textContent=effectiveAvg+'%';
-  document.getElementById('t1-risk').textContent=myHigh+myMed;
-  document.getElementById('t1-highrisk').textContent=myHigh;
-  document.getElementById('t1-students').textContent=myStudents.length;
-  document.getElementById('t1-assessments').textContent=4;
-  document.getElementById('t-stu-count').textContent=myStudents.length+' students';
-  document.getElementById('t-students-title').textContent=`Students — ${subj} · ${grade}`;
-  buildTeacherStudentsTable(myStudents,'all');
-  buildTeacherAssessmentsTable(t);
-  // Reset risk filter buttons
-  document.querySelectorAll('#panel-teacher .jtag:not(#t-class-tabs .jtag)').forEach(b=>{
-    if(b.textContent.trim()==='All')b.classList.add('active');
-    else b.classList.remove('active');
-  });
-
-  // Pre-populate drill panels for this class
-  populateAssessmentPanel(t,myStudents);
-  populateStrandPanel(t,myStudents);
-  populateStudentPanelForTeacher(myStudents);
-
-  setTimeout(()=>{
-    const scores=myStudents.map(s=>s.score);
-    const bins=[0,0,0,0,0];
-    scores.forEach(sc=>{if(sc<=20)bins[0]++;else if(sc<=40)bins[1]++;else if(sc<=60)bins[2]++;else if(sc<=80)bins[3]++;else bins[4]++;});
-    mkChart('ch-t-dist',{type:'bar',data:{labels:['0-20','21-40','41-60','61-80','81+'],datasets:[{data:bins,backgroundColor:['rgba(239,68,68,.8)','rgba(239,68,68,.6)','rgba(245,158,11,.7)','rgba(99,102,241,.65)','rgba(16,185,129,.65)'],borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:TIP},scales:{x:{grid:{color:GC},ticks:{color:TC,font:{family:'monospace',size:9}}},y:{grid:{color:GC},ticks:{color:TC,font:{family:'monospace',size:9}}}}}});
-    const base=effectiveAvg;
-    mkChart('ch-t-trend',{type:'line',data:{labels:['W1','W2','W3','W4','W5','W6','W7','W8','W9','W10','W11','W12'],datasets:[{data:[base+10,base+8,base+9,base+5,base+7,base+3,base+4,base+1,base+2,base-1,base+1,base],borderColor:base<65?'#ef4444':base<73?'#f59e0b':'#10b981',backgroundColor:base<65?'rgba(239,68,68,.07)':'rgba(16,185,129,.06)',fill:true,tension:.4,borderWidth:2,pointBackgroundColor:base<65?'#ef4444':'#10b981',pointBorderColor:'#fff',pointBorderWidth:2,pointRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:TIP},scales:{x:{grid:{color:GC},ticks:{color:TC,font:{family:'monospace',size:9}}},y:{min:40,max:100,grid:{color:GC},ticks:{color:TC,font:{family:'monospace',size:9}}}}}});
-  },100);
-
-  // Update breadcrumb label
-  const dbTeacher=document.getElementById('db-teacher');
-  if(dbTeacher)dbTeacher.querySelector('.drumb-txt').textContent=t.name.split(' ').slice(-1)[0];
-
-  showPanel('teacher');
+  return students;
 }
 
-// Populate the shared assessment panel with teacher data
-function populateAssessmentPanel(t,students){
-  const avg=SESSION._teacherAvg||t.avg;
-  const subj=SESSION._teacherSubj||t.subj;
+function showAssessmentPanel(t,students,avg){
+  const subj=SESSION.drillSubject||t.subj;
   const assess=[
     {n:`Unit Test 1 — ${subj}`,type:'Unit',avg,fail:Math.round((100-avg)*.35),diff:avg<65?'Hard':avg<75?'Medium':'Easy'},
     {n:'Chapter Quiz',type:'Quiz',avg:Math.min(100,avg+4),fail:Math.round((100-avg)*.28),diff:'Medium'},
     {n:'Practice Check',type:'Practice',avg:Math.min(100,avg+7),fail:Math.round((100-avg)*.22),diff:'Easy'},
     {n:'Mid-Term Exam',type:'Exam',avg:Math.max(10,avg-5),fail:Math.round((100-avg)*.42),diff:'Hard'},
   ];
-  // Use first assessment as default view in panel
   const a=assess[0];
   document.getElementById('s3-name').textContent=a.n;
   document.getElementById('s3-avg').textContent=a.avg+'%';
   document.getElementById('s3-fail').textContent=a.fail+'%';
+  document.getElementById('s3-students').textContent=students.length;
   document.getElementById('s3-highrisk').textContent=students.filter(s=>s.risk==='High').length;
-  // Student results table in assessment panel
-  const tb=document.getElementById('stu-tbody');if(!tb)return;
-  tb.innerHTML=students.slice(0,40).map(s=>{
+  const tb=document.getElementById('stu-tbody');
+  if(tb)tb.innerHTML=students.slice(0,40).map(s=>{
     const rc=s.risk==='High'?'pill-r':s.risk==='Med'?'pill-am':'pill-g';
     const sc=s.score<60?'pill-r':s.score<70?'pill-am':'pill-g';
     const tr=s.tr==='up'?`<span class="up">↑</span>`:s.tr==='dn'?`<span class="dn">↓</span>`:`<span class="flat">→</span>`;
-    return `<tr onclick="drillToStudentFromTeacher(${s.id})"><td><div style="display:flex;align-items:center;gap:7px"><div class="sav" style="background:${s.bg}">${s.init}</div><div><div style="font-size:11px">${s.name}</div><div style="font-size:9px;color:var(--muted);font-family:monospace">${s.grade} · ${s.subject}</div></div></div></td><td><span class="pill ${sc}">${s.score}%</span></td><td style="font-family:monospace;font-size:10px;color:#10b981">${s.correct}/20</td><td style="font-family:monospace;font-size:10px;color:#ef4444">${s.wrong}/20</td><td><span class="pill ${rc}">${s.risk}</span></td><td>${tr}</td></tr>`;
+    return `<tr onclick="drillToStudentDetail(ALL_STUDENTS.find(x=>x.id===${s.id})||${JSON.stringify(s)})" style="cursor:pointer"><td><div style="display:flex;align-items:center;gap:7px"><div class="sav" style="background:${s.bg}">${s.init}</div><div style="font-size:11px">${s.name}</div></div></td><td><span class="pill ${sc}">${s.score}%</span></td><td style="font-family:monospace;font-size:10px;color:#10b981">${s.correct}/20</td><td style="font-family:monospace;font-size:10px;color:#ef4444">${s.wrong}/20</td><td><span class="pill ${rc}">${s.risk}</span></td><td>${tr}</td></tr>`;
   }).join('');
   setTimeout(()=>{
+    animBars(document.getElementById('panel-assessment'));
     mkChart('ch-dist',{type:'bar',data:{labels:['0-20','21-40','41-60','61-80','81+'],datasets:[{data:students.reduce((b,s)=>{const i=s.score<=20?0:s.score<=40?1:s.score<=60?2:s.score<=80?3:4;b[i]++;return b;},[0,0,0,0,0]),backgroundColor:['rgba(239,68,68,.8)','rgba(239,68,68,.6)','rgba(245,158,11,.7)','rgba(99,102,241,.65)','rgba(16,185,129,.65)'],borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:TIP},scales:{x:{grid:{color:GC},ticks:{color:TC,font:{family:'monospace',size:9}}},y:{grid:{color:GC},ticks:{color:TC,font:{family:'monospace',size:9}}}}}});
-    const base=avg;
-    mkChart('ch-qwr',{type:'line',data:{labels:['W1','W2','W3','W4','W5','W6','W7','W8'],datasets:[{label:'Avg',data:[base+8,base+6,base+5,base+3,base+4,base+2,base+1,base],borderColor:'#6366f1',backgroundColor:'rgba(99,102,241,.07)',fill:true,tension:.4,borderWidth:2,pointBackgroundColor:'#6366f1',pointBorderColor:'#fff',pointBorderWidth:2,pointRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:TIP},scales:{x:{grid:{color:GC},ticks:{color:TC,font:{family:'monospace',size:9}}},y:{min:40,max:100,grid:{color:GC},ticks:{color:TC,font:{family:'monospace',size:9}}}}}});
+    mkChart('ch-qwr',{type:'line',data:{labels:['W1','W2','W3','W4','W5','W6','W7','W8'],datasets:[{label:'Avg',data:[avg+8,avg+6,avg+5,avg+3,avg+4,avg+2,avg+1,avg],borderColor:'#6366f1',backgroundColor:'rgba(99,102,241,.07)',fill:true,tension:.4,borderWidth:2,pointBackgroundColor:'#6366f1',pointBorderColor:'#fff',pointBorderWidth:2,pointRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:TIP},scales:{x:{grid:{color:GC},ticks:{color:TC,font:{family:'monospace',size:9}}},y:{min:30,max:100,grid:{color:GC},ticks:{color:TC,font:{family:'monospace',size:9}}}}}});
   },120);
+  populateStrandPanel(t,students);
+  showPanel('assessment');
 }
 
-// Populate strand panel with teacher data
 function populateStrandPanel(t,students){
-  const avg=SESSION._teacherAvg||t.avg;
-  const subj=SESSION._teacherSubj||t.subj;
-  const grade=SESSION._teacherGrade||t.grade;
+  const avg=SESSION._teacherAvg||SESSION._teacherFilter?.avg||t.avg;
+  const subj=SESSION._teacherSubj||SESSION.drillSubject||t.subj;
+  const grade=SESSION._teacherGrade||SESSION.drillGrade||t.grade;
   const strands=[
     {n:'Number & Operations',pct:Math.round(avg*.72),wrong:Math.round((100-avg)*.6+10),color:'#ef4444'},
     {n:'Geometry',pct:Math.round(avg*.62),wrong:Math.round((100-avg)*.7+15),color:'#f59e0b'},
@@ -1370,11 +1324,15 @@ function populateStrandPanel(t,students){
       <div class="kpi c-amber"><div class="kpi-lbl">STRANDS</div><div class="kpi-val">${strands.length}</div></div>
       <div class="kpi c-red"><div class="kpi-lbl">WEAKEST</div><div class="kpi-val" style="font-size:11px">${[...strands].sort((a,b)=>a.pct-b.pct)[0].n.split(' ')[0]}</div></div>
       <div class="kpi c-blue"><div class="kpi-lbl">STUDENTS</div><div class="kpi-val">${students.length}</div></div>
+      <div class="kpi c-indigo"><div class="kpi-lbl">TEACHER</div><div class="kpi-val" style="font-size:10px;line-height:1.3">${t.name.split(' ').slice(-1)[0]}</div></div>
+      <div class="kpi c-green"><div class="kpi-lbl">CLASS AVG</div><div class="kpi-val">${avg}%</div></div>
+      <div class="kpi c-red"><div class="kpi-lbl">HIGH RISK</div><div class="kpi-val">${students.filter(s=>s.risk==='High').length}</div></div>
+      <div class="kpi c-amber"><div class="kpi-lbl">SCHOOL AVG</div><div class="kpi-val">72.4%</div></div>
     </div>
     <div class="card">
       <div class="sec-head"><div class="sec-title">Strand mastery — ${subj} · ${grade}</div><div class="sec-badge">CLICK TO DRILL</div></div>
       ${[...strands].sort((a,b)=>a.pct-b.pct).map(s=>`
-        <div class="strand-row" onclick="drillToStandardFromTeacher('${s.n}')">
+        <div class="strand-row" onclick="drillToStandard('${s.n}')">
           <div style="flex:1">
             <div class="str-name">${s.n}</div>
             <div class="str-sub">${s.pct<60?'⚠ Below target':'✓ On track'} · ${students.length} students</div>
@@ -1403,8 +1361,7 @@ function populateStrandPanel(t,students){
   },150);
 }
 
-function drillToStandardFromTeacher(strandName){
-  const t=SESSION.teacher;
+function drillToStandard(strandName){
   const standards=[
     {code:'8.G.1',desc:'Triangle congruence — SSS, SAS, ASA criteria',pct:32,wrong:68},
     {code:'8.G.2',desc:'Properties of quadrilaterals and polygons',pct:51,wrong:49},
@@ -1418,11 +1375,13 @@ function drillToStandardFromTeacher(strandName){
       <div class="kpi c-indigo"><div class="kpi-lbl">STRAND</div><div class="kpi-val" style="font-size:11px">${strandName}</div></div>
       <div class="kpi c-blue"><div class="kpi-lbl">STANDARDS</div><div class="kpi-val">${standards.length}</div></div>
       <div class="kpi c-red"><div class="kpi-lbl">CRITICAL</div><div class="kpi-val">${standards.filter(s=>s.pct<50).length}</div></div>
+      <div class="kpi c-amber"><div class="kpi-lbl">AVG MASTERY</div><div class="kpi-val">${Math.round(standards.reduce((a,s)=>a+s.pct,0)/standards.length)}%</div></div>
+      <div class="kpi c-green"><div class="kpi-lbl">SCHOOL AVG</div><div class="kpi-val">72.4%</div></div>
     </div>
     <div class="card">
       <div class="sec-head"><div class="sec-title">Standards — ${strandName}</div><div class="sec-badge">CLICK FOR QUESTIONS</div></div>
       ${standards.map(s=>`
-        <div class="strand-row" onclick="drillToQuestionFromTeacher('${s.code}','${s.desc}')">
+        <div class="strand-row" onclick="drillToQuestions('${s.code}','${s.desc}')">
           <div style="flex:1">
             <div class="str-name">${s.code} — ${s.desc}</div>
             <div class="str-sub">${s.pct<50?'⚠ Critical gap':s.pct<70?'↗ Needs work':'✓ Satisfactory'}</div>
@@ -1437,92 +1396,46 @@ function drillToStandardFromTeacher(strandName){
   showPanel('standard');
 }
 
-function drillToQuestionFromTeacher(code,desc){
+function drillToQuestions(code,desc){
   const questions=[
-    {q:`Which criteria proves triangle congruence when two sides and the included angle are equal?`,opt:['SSS','SAS','ASA','AAS'],correct:1,wrong:78,diff:'Hard'},
-    {q:`If triangle ABC ≅ triangle DEF by ASA, which sides must be equal?`,opt:['AB=DE','BC=EF','AC=DF','AB=EF'],correct:2,wrong:61,diff:'Hard'},
-    {q:`A polygon with all sides equal and all angles equal is called a ___`,opt:['Rectangle','Rhombus','Regular polygon','Parallelogram'],correct:2,wrong:34,diff:'Medium'},
-    {q:`Solve: 3x + 7 = 22. What is x?`,opt:['3','4','5','6'],correct:2,wrong:22,diff:'Easy'},
-    {q:`The mean of 5, 10, 15 is:`,opt:['10','11','12','9'],correct:0,wrong:18,diff:'Easy'},
+    {q:'Which criteria proves triangle congruence when two sides and the included angle are equal?',opt:['SSS','SAS','ASA','AAS'],correct:1,wrong:78,diff:'Hard'},
+    {q:'If triangle ABC ≅ triangle DEF by ASA, which sides must be equal?',opt:['AB=DE','BC=EF','AC=DF','AB=EF'],correct:2,wrong:61,diff:'Hard'},
+    {q:'A polygon with all sides equal and all angles equal is called a ___',opt:['Rectangle','Rhombus','Regular polygon','Parallelogram'],correct:2,wrong:34,diff:'Medium'},
+    {q:'Solve: 3x + 7 = 22. What is x?',opt:['3','4','5','6'],correct:2,wrong:22,diff:'Easy'},
+    {q:'The mean of 5, 10, 15 is:',opt:['10','11','12','9'],correct:0,wrong:18,diff:'Easy'},
   ];
   const panel=document.getElementById('panel-question');
   panel.innerHTML=`
-    <div class="sec-head" style="margin-bottom:12px">
-      <div class="sec-title">Questions — ${code}: ${desc}</div>
-      <div class="sec-badge">${questions.length} QUESTIONS</div>
+    <div class="kpi-strip">
+      <div class="kpi c-indigo"><div class="kpi-lbl">STANDARD</div><div class="kpi-val" style="font-size:11px">${code}</div></div>
+      <div class="kpi c-blue"><div class="kpi-lbl">QUESTIONS</div><div class="kpi-val">${questions.length}</div></div>
+      <div class="kpi c-red"><div class="kpi-lbl">CRITICAL Qs</div><div class="kpi-val">${questions.filter(q=>q.wrong>60).length}</div></div>
+      <div class="kpi c-amber"><div class="kpi-lbl">AVG WRONG</div><div class="kpi-val">${Math.round(questions.reduce((a,q)=>a+q.wrong,0)/questions.length)}%</div></div>
+      <div class="kpi c-green"><div class="kpi-lbl">AVG CORRECT</div><div class="kpi-val">${100-Math.round(questions.reduce((a,q)=>a+q.wrong,0)/questions.length)}%</div></div>
     </div>
+    <div class="sec-head" style="margin-bottom:12px"><div class="sec-title">Questions — ${code}: ${desc}</div><div class="sec-badge">${questions.length} QUESTIONS</div></div>
     ${questions.map((q,i)=>`
       <div class="q-card ${q.wrong>60?'wrong':q.wrong>35?'partial':''}">
-        <div class="qhd">
-          <span class="qnum">Q${i+1} · ${code}</span>
-          <span class="dtag ${q.diff==='Hard'?'dtag-h':q.diff==='Easy'?'dtag-e':'dtag-m'}">${q.diff}</span>
-        </div>
+        <div class="qhd"><span class="qnum">Q${i+1} · ${code}</span><span class="dtag ${q.diff==='Hard'?'dtag-h':q.diff==='Easy'?'dtag-e':'dtag-m'}">${q.diff}</span></div>
         <div class="qtxt">${q.q}</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:8px">
           ${q.opt.map((o,j)=>`<div style="padding:5px 9px;border-radius:7px;border:1px solid ${j===q.correct?'rgba(16,185,129,.3)':'var(--border)'};background:${j===q.correct?'rgba(16,185,129,.06)':'transparent'};font-size:10px">${String.fromCharCode(65+j)}) ${o}</div>`).join('')}
         </div>
         <div class="qbar"><div class="qfill" data-w="${q.wrong}" style="background:${q.wrong>60?'#ef4444':q.wrong>35?'#f59e0b':'#10b981'}"></div></div>
         <div class="qlbl"><span>${q.wrong}% answered wrong</span><span>${100-q.wrong}% correct</span></div>
-        <div class="qtags">
-          <span class="qtag">${code}</span>
-          <span class="qtag">${q.diff}</span>
-          <span class="qtag">${q.wrong>60?'⚠ Critical':'✓ OK'}</span>
-        </div>
+        <div class="qtags"><span class="qtag">${code}</span><span class="qtag">${q.diff}</span><span class="qtag">${q.wrong>60?'⚠ Critical':'✓ OK'}</span></div>
       </div>`).join('')}`;
   setTimeout(()=>animBars(panel),120);
   showPanel('question');
 }
 
-// Populate student panel list for teacher
-function populateStudentPanelForTeacher(students){
-  const panel=document.getElementById('panel-student');
-  panel.innerHTML=`
-    <div class="sec-head" style="margin-bottom:10px">
-      <div class="sec-title">All students</div>
-      <div style="display:flex;gap:5px;flex-wrap:wrap">
-        <button class="jtag active" onclick="filterStudentPanel('all',this)">All</button>
-        <button class="jtag" onclick="filterStudentPanel('High',this)">High Risk</button>
-        <button class="jtag" onclick="filterStudentPanel('Med',this)">Med Risk</button>
-        <button class="jtag" onclick="filterStudentPanel('Low',this)">On Track</button>
-        <div class="sec-badge" id="sp-count">${students.length} students</div>
-      </div>
-    </div>
-    <div class="card">
-      <table class="tbl"><thead><tr><th>Student</th><th>Grade</th><th>Subject</th><th>Score</th><th>Correct</th><th>Wrong</th><th>Risk</th><th>Trend</th></tr></thead>
-      <tbody id="sp-tbody"></tbody></table>
-    </div>`;
-  renderStudentPanelTable(students,students);
-}
-
-function filterStudentPanel(f,btn){
-  document.querySelectorAll('#panel-student .jtag').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  const all=SESSION._teacherStudents||[];
-  const filtered=f==='all'?all:all.filter(s=>s.risk===f);
-  const countEl=document.getElementById('sp-count');
-  if(countEl)countEl.textContent=filtered.length+' students';
-  renderStudentPanelTable(all,filtered);
-}
-
-function renderStudentPanelTable(all,filtered){
-  const tb=document.getElementById('sp-tbody');if(!tb)return;
-  tb.innerHTML=filtered.map(s=>{
-    const rc=s.risk==='High'?'pill-r':s.risk==='Med'?'pill-am':'pill-g';
-    const sc=s.score<60?'pill-r':s.score<70?'pill-am':'pill-g';
-    const tr=s.tr==='up'?`<span class="up">↑</span>`:s.tr==='dn'?`<span class="dn">↓</span>`:`<span class="flat">→</span>`;
-    return `<tr onclick="drillToStudentFromTeacher(${s.id})" style="cursor:pointer"><td><div style="display:flex;align-items:center;gap:7px"><div class="sav" style="background:${s.bg}">${s.init}</div><div><div style="font-size:11px">${s.name}</div><div class="mbar"><div class="mfill" data-w="${s.score}" style="background:${s.score<60?'#ef4444':s.score<70?'#f59e0b':'#10b981'}"></div></div></div></div></td><td style="font-size:10px;color:var(--muted)">${s.grade}</td><td style="font-size:10px;color:var(--muted)">${s.subject}</td><td><span class="pill ${sc}">${s.score}%</span></td><td style="font-family:monospace;font-size:10px;color:#10b981">${s.correct}/20</td><td style="font-family:monospace;font-size:10px;color:#ef4444">${s.wrong}/20</td><td><span class="pill ${rc}">${s.risk}</span></td><td>${tr}</td></tr>`;
-  }).join('');
-  setTimeout(()=>animBars(tb),200);
-}
-
-function drillToStudentFromTeacher(id){
-  const all=SESSION._teacherStudents||ALL_STUDENTS;
-  const s=all.find(x=>x.id===id)||ALL_STUDENTS.find(x=>x.id===id);
+function drillToStudentDetail(s){
   if(!s)return;
   const panel=document.getElementById('panel-student');
   const r=seededRand(s.id*7+3);
   const subjScores=ALL_SUBJECTS.map(sub=>({n:sub.n,score:Math.min(100,Math.max(10,Math.round(sub.avg+(r()-.5)*35))),color:sub.color,avg:sub.avg}));
   const riskCls=s.risk==='High'?'pill-r':s.risk==='Med'?'pill-am':'pill-g';
+  const isTeacher=SESSION.role==='teacher';
   panel.innerHTML=`
     <div class="stu-hdr">
       <div class="stu-big-av" style="background:${s.bg}">${s.init}</div>
@@ -1531,7 +1444,7 @@ function drillToStudentFromTeacher(id){
         <div style="font-size:10px;font-family:monospace;color:var(--muted)">${s.grade} · ${s.subject} · Roll #${(s.id%40)+1}</div>
       </div>
       <span class="pill ${riskCls}">${s.risk} Risk</span>
-      <button class="btn" onclick="populateStudentPanelForTeacher(SESSION._teacherStudents||[])" style="font-size:10px">← All students</button>
+      <button class="btn" onclick="${isTeacher?'renderTeacherHome()':'navCrumb(\'assessment\')'}" style="font-size:10px">← Back</button>
     </div>
     <div class="kpi-strip">
       <div class="kpi c-indigo"><div class="kpi-lbl">SCORE</div><div class="kpi-val">${s.score}%</div></div>
@@ -1539,6 +1452,10 @@ function drillToStudentFromTeacher(id){
       <div class="kpi c-red"><div class="kpi-lbl">WRONG</div><div class="kpi-val">${s.wrong}/20</div></div>
       <div class="kpi c-blue"><div class="kpi-lbl">TESTS</div><div class="kpi-val">8</div></div>
       <div class="kpi c-amber"><div class="kpi-lbl">TREND</div><div class="kpi-val" style="font-size:18px">${s.tr==='up'?'↑':s.tr==='dn'?'↓':'→'}</div></div>
+      <div class="kpi c-indigo"><div class="kpi-lbl">GRADE</div><div class="kpi-val" style="font-size:11px">${s.grade}</div></div>
+      <div class="kpi c-green"><div class="kpi-lbl">SUBJECT</div><div class="kpi-val" style="font-size:11px">${s.subject.split(' ')[0]}</div></div>
+      <div class="kpi c-red"><div class="kpi-lbl">RISK</div><div class="kpi-val" style="font-size:11px">${s.risk}</div></div>
+      <div class="kpi c-amber"><div class="kpi-lbl">SCHOOL AVG</div><div class="kpi-val">72.4%</div></div>
     </div>
     <div class="g2">
       <div class="card"><div class="sec-head"><div class="sec-title">Score history</div></div><div class="chart-h180"><canvas id="ch-sp-hist"></canvas></div></div>
@@ -1570,34 +1487,93 @@ function drillToStudentFromTeacher(id){
   showPanel('student');
 }
 
+function renderTeacherHome(){
+  const t=SESSION.teacher;if(!t)return;
+  maxUnlocked=VIEW_ORDER.length-1;
+  const tabBar=document.getElementById('t-class-tabs');
+  if(tabBar){
+    tabBar.innerHTML=t.classes.map((c,i)=>`<button class="jtag" onclick="switchTeacherClass(${i},this)">${c.subj} · ${c.grade}</button>`).join('');
+    const tabs=tabBar.querySelectorAll('.jtag');
+    tabs.forEach((btn,i)=>{
+      const c=t.classes[i];
+      if(SESSION._teacherFilter&&c.subj===SESSION._teacherFilter.subj&&c.grade===SESSION._teacherFilter.grade)btn.classList.add('active');
+    });
+    if(!SESSION._teacherFilter){SESSION._teacherFilter={...t.classes[0]};}
+    if(!tabBar.querySelector('.active')&&tabs.length)tabs[0].classList.add('active');
+  }
+  applyTeacherFilter();
+}
+
+function switchTeacherClass(idx,btn){
+  const t=SESSION.teacher;if(!t)return;
+  document.querySelectorAll('#t-class-tabs .jtag').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  SESSION._teacherFilter={...t.classes[idx]};
+  applyTeacherFilter();
+}
+
+function applyTeacherFilter(){
+  const t=SESSION.teacher;if(!t)return;
+  const {subj,grade,avg:classAvg}=SESSION._teacherFilter;
+  const effectiveAvg=classAvg||t.avg;
+  const lbl=document.getElementById('t-filter-label');
+  if(lbl)lbl.textContent=subj+' · '+grade;
+  const myStudents=getStudentsForClass(subj,grade,effectiveAvg);
+  SESSION._teacherStudents=myStudents;SESSION._teacherSubj=subj;SESSION._teacherGrade=grade;SESSION._teacherAvg=effectiveAvg;
+  const myHigh=myStudents.filter(s=>s.risk==='High').length;
+  const myMed=myStudents.filter(s=>s.risk==='Med').length;
+  document.getElementById('t1-name').textContent=t.name;
+  document.getElementById('t1-avg').textContent=effectiveAvg+'%';
+  document.getElementById('t1-risk').textContent=myHigh+myMed;
+  document.getElementById('t1-classes').textContent=t.classes.length;
+  document.getElementById('t1-highrisk').textContent=myHigh;
+  document.getElementById('t1-students').textContent=myStudents.length;
+  document.getElementById('t1-assessments').textContent=4;
+  document.getElementById('t1-quizruns').textContent=Math.round(284*(effectiveAvg/65));
+  document.getElementById('t-students-title').textContent='Students — '+subj+' · '+grade;
+  document.getElementById('t-stu-count').textContent=myStudents.length+' students';
+  document.querySelectorAll('#panel-teacher .jtag:not(#t-class-tabs .jtag)').forEach(b=>{
+    if(b.id==='t-filter-all'||b.textContent.trim()==='All')b.classList.add('active');else b.classList.remove('active');
+  });
+  buildTeacherStudentsTable(myStudents,'all');
+  buildTeacherAssessmentsTable(t,effectiveAvg,subj);
+  populateStrandPanel(t,myStudents);
+  setTimeout(()=>{
+    const scores=myStudents.map(s=>s.score);
+    const bins=[0,0,0,0,0];
+    scores.forEach(sc=>{if(sc<=20)bins[0]++;else if(sc<=40)bins[1]++;else if(sc<=60)bins[2]++;else if(sc<=80)bins[3]++;else bins[4]++;});
+    mkChart('ch-t-dist',{type:'bar',data:{labels:['0-20','21-40','41-60','61-80','81+'],datasets:[{data:bins,backgroundColor:['rgba(239,68,68,.8)','rgba(239,68,68,.6)','rgba(245,158,11,.7)','rgba(99,102,241,.65)','rgba(16,185,129,.65)'],borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:TIP},scales:{x:{grid:{color:GC},ticks:{color:TC,font:{family:'monospace',size:9}}},y:{grid:{color:GC},ticks:{color:TC,font:{family:'monospace',size:9}}}}}});
+    const base=effectiveAvg;
+    mkChart('ch-t-trend',{type:'line',data:{labels:['W1','W2','W3','W4','W5','W6','W7','W8','W9','W10','W11','W12'],datasets:[{data:[base+10,base+8,base+9,base+5,base+7,base+3,base+4,base+1,base+2,base-1,base+1,base],borderColor:base<65?'#ef4444':base<73?'#f59e0b':'#10b981',backgroundColor:base<65?'rgba(239,68,68,.07)':'rgba(16,185,129,.06)',fill:true,tension:.4,borderWidth:2,pointBackgroundColor:base<65?'#ef4444':'#10b981',pointBorderColor:'#fff',pointBorderWidth:2,pointRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:TIP},scales:{x:{grid:{color:GC},ticks:{color:TC,font:{family:'monospace',size:9}}},y:{min:30,max:100,grid:{color:GC},ticks:{color:TC,font:{family:'monospace',size:9}}}}}});
+  },100);
+  const dbTeacher=document.getElementById('db-teacher');
+  if(dbTeacher)dbTeacher.querySelector('.drumb-txt').textContent=t.name.split(' ').slice(-1)[0];
+  showPanel('teacher');
+}
+
 let teacherRiskFilter='all';
 function filterTeacherStudents(f,btn){
   teacherRiskFilter=f;
-  document.querySelectorAll('#panel-teacher .jtag').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  const list=SESSION._teacherStudents||[];
-  buildTeacherStudentsTable(list,f);
+  document.querySelectorAll('#panel-teacher .jtag:not(#t-class-tabs .jtag)').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');buildTeacherStudentsTable(SESSION._teacherStudents||[],f);
 }
 
 function buildTeacherStudentsTable(list,filter){
-  const showList=list.length?list:ALL_STUDENTS.slice(0,38);
-  const filtered=filter&&filter!=='all'?showList.filter(s=>s.risk===filter):showList;
+  const filtered=!filter||filter==='all'?list:list.filter(s=>s.risk===filter);
   document.getElementById('t-stu-count').textContent=filtered.length+' students';
   const tb=document.getElementById('t-stu-tbody');if(!tb)return;
   tb.innerHTML=filtered.slice(0,50).map(s=>{
     const rc=s.risk==='High'?'pill-r':s.risk==='Med'?'pill-am':'pill-g';
     const sc=s.score<60?'pill-r':s.score<70?'pill-am':'pill-g';
     const tr=s.tr==='up'?`<span class="up">↑</span>`:s.tr==='dn'?`<span class="dn">↓</span>`:`<span class="flat">→</span>`;
-    return `<tr style="cursor:pointer" onclick="drillToStudentFromTeacher(${s.id})"><td><div style="display:flex;align-items:center;gap:7px"><div class="sav" style="background:${s.bg}">${s.init}</div><div><div style="font-size:11px">${s.name}</div><div class="mbar"><div class="mfill" data-w="${s.score}" style="background:${s.score<60?'#ef4444':s.score<70?'#f59e0b':'#10b981'}"></div></div></div></div></td><td style="font-size:10px;color:var(--muted)">${s.grade}</td><td style="font-size:10px;color:var(--muted)">${s.subject}</td><td><span class="pill ${sc}">${s.score}%</span></td><td style="font-family:monospace;font-size:10px;color:#10b981">${s.correct}/20</td><td style="font-family:monospace;font-size:10px;color:#ef4444">${s.wrong}/20</td><td><span class="pill ${rc}">${s.risk}</span></td><td>${tr}</td><td><button class="btn" style="padding:2px 7px;font-size:10px" onclick="event.stopPropagation();drillToStudentFromTeacher(${s.id})">View →</button></td></tr>`;
+    return `<tr style="cursor:pointer" onclick="drillToStudentDetail(${JSON.stringify(s).replace(/"/g,"'")})"><td><div style="display:flex;align-items:center;gap:7px"><div class="sav" style="background:${s.bg}">${s.init}</div><div><div style="font-size:11px">${s.name}</div><div class="mbar"><div class="mfill" data-w="${s.score}" style="background:${s.score<60?'#ef4444':s.score<70?'#f59e0b':'#10b981'}"></div></div></div></div></td><td style="font-size:10px;color:var(--muted)">${s.grade}</td><td style="font-size:10px;color:var(--muted)">${s.subject}</td><td><span class="pill ${sc}">${s.score}%</span></td><td style="font-family:monospace;font-size:10px;color:#10b981">${s.correct}/20</td><td style="font-family:monospace;font-size:10px;color:#ef4444">${s.wrong}/20</td><td><span class="pill ${rc}">${s.risk}</span></td><td>${tr}</td><td><button class="btn" style="padding:2px 7px;font-size:10px" onclick="event.stopPropagation();drillToStudentDetail(${JSON.stringify(s).replace(/"/g,"'")})">View →</button></td></tr>`;
   }).join('');
   setTimeout(()=>animBars(tb),200);
 }
 
-function buildTeacherAssessmentsTable(t){
-  const avg=SESSION._teacherAvg||t.avg;
-  const subj=SESSION._teacherSubj||t.subj;
+function buildTeacherAssessmentsTable(t,avg,subj){
   const assess=[
-    {n:`Unit Test 1 — ${subj}`,type:'Unit',avg,fail:Math.round((100-avg)*.35),diff:avg<65?'Hard':avg<75?'Medium':'Easy'},
+    {n:'Unit Test 1 — '+subj,type:'Unit',avg,fail:Math.round((100-avg)*.35),diff:avg<65?'Hard':avg<75?'Medium':'Easy'},
     {n:'Chapter Quiz',type:'Quiz',avg:Math.min(100,avg+4),fail:Math.round((100-avg)*.28),diff:'Medium'},
     {n:'Practice Check',type:'Practice',avg:Math.min(100,avg+7),fail:Math.round((100-avg)*.22),diff:'Easy'},
     {n:'Mid-Term Exam',type:'Exam',avg:Math.max(10,avg-5),fail:Math.round((100-avg)*.42),diff:'Hard'},
@@ -1606,75 +1582,61 @@ function buildTeacherAssessmentsTable(t){
   tb.innerHTML=assess.map((a,i)=>{
     const sc=a.avg<60?'pill-r':a.avg<70?'pill-am':'pill-g';
     const dc=a.diff==='Hard'?'dtag-h':a.diff==='Easy'?'dtag-e':'dtag-m';
-    return `<tr style="cursor:pointer" onclick="drillToAssessmentFromTeacher(${i})"><td style="font-size:11px">${a.n}</td><td><span class="dtag">${a.type}</span></td><td><span class="pill ${sc}">${a.avg}%</span></td><td style="font-family:monospace;font-size:10px;color:#ef4444">${a.fail}%</td><td><span class="dtag ${dc}">${a.diff}</span></td></tr>`;
+    return `<tr style="cursor:pointer" onclick="teacherDrillAssessment(${i})"><td style="font-size:11px">${a.n}</td><td><span class="dtag">${a.type}</span></td><td><span class="pill ${sc}">${a.avg}%</span></td><td style="font-family:monospace;font-size:10px;color:#ef4444">${a.fail}%</td><td><span class="dtag ${dc}">${a.diff}</span></td></tr>`;
   }).join('');
 }
 
-function drillToAssessmentFromTeacher(idx){
+function teacherDrillAssessment(idx){
   const t=SESSION.teacher;if(!t)return;
-  const avg=SESSION._teacherAvg||t.avg;
-  const subj=SESSION._teacherSubj||t.subj;
+  const avg=SESSION._teacherAvg||t.avg;const subj=SESSION._teacherSubj||t.subj;const students=SESSION._teacherStudents||[];
   const assess=[
-    {n:`Unit Test 1 — ${subj}`,type:'Unit',avg,fail:Math.round((100-avg)*.35),diff:avg<65?'Hard':avg<75?'Medium':'Easy'},
-    {n:'Chapter Quiz',type:'Quiz',avg:Math.min(100,avg+4),fail:Math.round((100-avg)*.28),diff:'Medium'},
-    {n:'Practice Check',type:'Practice',avg:Math.min(100,avg+7),fail:Math.round((100-avg)*.22),diff:'Easy'},
-    {n:'Mid-Term Exam',type:'Exam',avg:Math.max(10,avg-5),fail:Math.round((100-avg)*.42),diff:'Hard'},
+    {n:'Unit Test 1 — '+subj,avg,fail:Math.round((100-avg)*.35)},
+    {n:'Chapter Quiz',avg:Math.min(100,avg+4),fail:Math.round((100-avg)*.28)},
+    {n:'Practice Check',avg:Math.min(100,avg+7),fail:Math.round((100-avg)*.22)},
+    {n:'Mid-Term Exam',avg:Math.max(10,avg-5),fail:Math.round((100-avg)*.42)},
   ];
   const a=assess[idx]||assess[0];
-  const students=SESSION._teacherStudents||[];
-  document.getElementById('s3-name').textContent=a.n;
-  document.getElementById('s3-avg').textContent=a.avg+'%';
-  document.getElementById('s3-fail').textContent=a.fail+'%';
+  document.getElementById('s3-name').textContent=a.n;document.getElementById('s3-avg').textContent=a.avg+'%';
+  document.getElementById('s3-fail').textContent=a.fail+'%';document.getElementById('s3-students').textContent=students.length;
   document.getElementById('s3-highrisk').textContent=students.filter(s=>s.risk==='High').length;
-  const tb=document.getElementById('stu-tbody');if(tb){
-    tb.innerHTML=students.slice(0,40).map(s=>{
-      const rc=s.risk==='High'?'pill-r':s.risk==='Med'?'pill-am':'pill-g';
-      const sc=s.score<60?'pill-r':s.score<70?'pill-am':'pill-g';
-      const tr=s.tr==='up'?`<span class="up">↑</span>`:s.tr==='dn'?`<span class="dn">↓</span>`:`<span class="flat">→</span>`;
-      return `<tr onclick="drillToStudentFromTeacher(${s.id})" style="cursor:pointer"><td><div style="display:flex;align-items:center;gap:7px"><div class="sav" style="background:${s.bg}">${s.init}</div><div><div style="font-size:11px">${s.name}</div><div style="font-size:9px;color:var(--muted);font-family:monospace">${s.grade} · ${s.subject}</div></div></div></td><td><span class="pill ${sc}">${s.score}%</span></td><td style="font-family:monospace;font-size:10px;color:#10b981">${s.correct}/20</td><td style="font-family:monospace;font-size:10px;color:#ef4444">${s.wrong}/20</td><td><span class="pill ${rc}">${s.risk}</span></td><td>${tr}</td></tr>`;
-    }).join('');
-    setTimeout(()=>animBars(tb),200);
-  }
+  const tb=document.getElementById('stu-tbody');
+  if(tb)tb.innerHTML=students.slice(0,40).map(s=>{
+    const rc=s.risk==='High'?'pill-r':s.risk==='Med'?'pill-am':'pill-g';
+    const sc=s.score<60?'pill-r':s.score<70?'pill-am':'pill-g';
+    const tr=s.tr==='up'?`<span class="up">↑</span>`:s.tr==='dn'?`<span class="dn">↓</span>`:`<span class="flat">→</span>`;
+    return `<tr onclick="drillToStudentDetail(${JSON.stringify(s).replace(/"/g,"'")})" style="cursor:pointer"><td><div style="display:flex;align-items:center;gap:7px"><div class="sav" style="background:${s.bg}">${s.init}</div><div style="font-size:11px">${s.name}</div></div></td><td><span class="pill ${sc}">${s.score}%</span></td><td style="font-family:monospace;font-size:10px;color:#10b981">${s.correct}/20</td><td style="font-family:monospace;font-size:10px;color:#ef4444">${s.wrong}/20</td><td><span class="pill ${rc}">${s.risk}</span></td><td>${tr}</td></tr>`;
+  }).join('');
+  setTimeout(()=>{
+    mkChart('ch-dist',{type:'bar',data:{labels:['0-20','21-40','41-60','61-80','81+'],datasets:[{data:students.reduce((b,s)=>{const i=s.score<=20?0:s.score<=40?1:s.score<=60?2:s.score<=80?3:4;b[i]++;return b;},[0,0,0,0,0]),backgroundColor:['rgba(239,68,68,.8)','rgba(239,68,68,.6)','rgba(245,158,11,.7)','rgba(99,102,241,.65)','rgba(16,185,129,.65)'],borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:TIP},scales:{x:{grid:{color:GC},ticks:{color:TC,font:{family:'monospace',size:9}}},y:{grid:{color:GC},ticks:{color:TC,font:{family:'monospace',size:9}}}}}});
+    mkChart('ch-qwr',{type:'line',data:{labels:['W1','W2','W3','W4','W5','W6','W7','W8'],datasets:[{data:[avg+8,avg+6,avg+5,avg+3,avg+4,avg+2,avg+1,avg],borderColor:'#6366f1',backgroundColor:'rgba(99,102,241,.07)',fill:true,tension:.4,borderWidth:2,pointBackgroundColor:'#6366f1',pointBorderColor:'#fff',pointBorderWidth:2,pointRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:TIP},scales:{x:{grid:{color:GC},ticks:{color:TC,font:{family:'monospace',size:9}}},y:{min:30,max:100,grid:{color:GC},ticks:{color:TC,font:{family:'monospace',size:9}}}}}});
+  },120);
   showPanel('assessment');
 }
 
-// ═══════════════════════════════════════════════
-// STUDENT SELF VIEW
-// ═══════════════════════════════════════════════
 function renderStudentSelf(){
   const s=SESSION.student;if(!s)return;
-  document.getElementById('ss-av').textContent=s.init;
-  document.getElementById('ss-av').style.background=s.bg;
+  document.getElementById('ss-av').textContent=s.init;document.getElementById('ss-av').style.background=s.bg;
   document.getElementById('ss-name').textContent=s.name;
   document.getElementById('ss-meta').textContent=s.grade+' · '+s.subject+' · Roll #'+(s.id%40+1);
   document.getElementById('ss-score').textContent=s.score+'%';
   document.getElementById('ss-correct').textContent=s.correct+'/20';
   document.getElementById('ss-wrong').textContent=s.wrong+'/20';
-  const sameSubjSameGrade=ALL_STUDENTS.filter(x=>x.subject===s.subject&&x.grade===s.grade).sort((a,b)=>b.score-a.score);
-  const rank=sameSubjSameGrade.findIndex(x=>x.id===s.id)+1||'—';
+  const sameSubj=ALL_STUDENTS.filter(x=>x.subject===s.subject&&x.grade===s.grade).sort((a,b)=>b.score-a.score);
+  const rank=sameSubj.findIndex(x=>x.id===s.id)+1||'—';
   document.getElementById('ss-rank').textContent='#'+rank;
   const rp=document.getElementById('ss-risk-pill');
   rp.textContent=s.risk+' Risk';rp.className='pill '+(s.risk==='High'?'pill-r':s.risk==='Med'?'pill-am':'pill-g');
-  // Subject bars
   const r=seededRand(s.id*7+3);
   document.getElementById('ss-subject-bars').innerHTML=ALL_SUBJECTS.map(sub=>{
     const stuAvg=Math.min(100,Math.max(10,Math.round(sub.avg+(r()-.5)*35)));
     const c=stuAvg<60?'#ef4444':stuAvg<70?'#f59e0b':'#10b981';
     return `<div class="subj-row"><div class="sn">${sub.n}</div><div class="bt"><div data-w="${stuAvg}" style="height:100%;border-radius:20px;width:0;transition:width 1.2s ease;background:${sub.color}"></div></div><div class="bpct" style="color:${c}">${stuAvg}%</div></div>`;
   }).join('');
-  // Strand list
-  const strands=[
-    {n:'Number & Operations',my:28,class:58,color:'#ef4444'},
-    {n:'Geometry',my:31,class:54,color:'#ef4444'},
-    {n:'Algebra',my:45,class:67,color:'#f59e0b'},
-    {n:'Statistics',my:52,class:71,color:'#f59e0b'},
-    {n:'Reading',my:61,class:72,color:'#10b981'},
-  ];
+  const strands=[{n:'Number & Operations',my:28,class:58,color:'#ef4444'},{n:'Geometry',my:31,class:54,color:'#ef4444'},{n:'Algebra',my:45,class:67,color:'#f59e0b'},{n:'Statistics',my:52,class:71,color:'#f59e0b'},{n:'Reading',my:61,class:72,color:'#10b981'}];
   document.getElementById('ss-strand-list').innerHTML=strands.map(st=>{
     const c=st.my<40?'#ef4444':st.my<60?'#f59e0b':'#10b981';
     return `<div class="strand-row"><div style="flex:1"><div class="str-name">${st.n}</div><div class="str-sub">My: ${st.my}% · Class avg: ${st.class}%</div></div><div class="str-track"><div class="str-fill" data-w="${st.my}" style="background:${c}"></div></div><div class="str-pct" style="color:${c}">${st.my}%</div></div>`;
   }).join('');
-  // Assessments table
   const myAssess=[
     {n:'Unit Test 1',date:'12 Apr',my:s.score+8,avg:65,rank:'#'+Math.max(1,rank-2)},
     {n:'Chapter Quiz',date:'28 Mar',my:s.score+5,avg:68,rank:'#'+Math.max(1,rank-1)},
@@ -1694,50 +1656,39 @@ function renderStudentSelf(){
   showPanel('student-self');
 }
 
-// ═══════════════════════════════════════════════
-// PARENT DASHBOARD
-// ═══════════════════════════════════════════════
 function renderParentDashboard(){
   const child=SESSION.childStudent||ALL_STUDENTS[0];
   const r=seededRand(child.id*13+7);
-  // Hero
   document.getElementById('p-child-av').textContent=child.init;
   document.getElementById('p-child-av').style.background=child.bg;
   document.getElementById('p-child-name').textContent=child.name;
   document.getElementById('p-child-meta').textContent=child.grade+' · Roll #'+(child.id%40+1);
   document.getElementById('p-ai-child-name').textContent=child.name.split(' ')[0];
-  // Score ring
   const pct=child.score;
   const circumference=2*Math.PI*32;
   const offset=circumference*(1-pct/100);
   document.getElementById('p-score-arc').style.strokeDashoffset=offset;
   document.getElementById('p-score-arc').style.stroke=pct<45?'#ef4444':pct<70?'#f59e0b':'#10b981';
   document.getElementById('p-score-val').textContent=pct+'%';
-  const riskTxt=document.getElementById('p-risk-txt');
-  const riskSub=document.getElementById('p-risk-sub');
+  const riskTxt=document.getElementById('p-risk-txt');const riskSub=document.getElementById('p-risk-sub');
   if(child.risk==='High'){riskTxt.textContent='High Risk';riskTxt.style.color='#ef4444';riskSub.textContent='Needs immediate attention';}
   else if(child.risk==='Med'){riskTxt.textContent='Medium Risk';riskTxt.style.color='#f59e0b';riskSub.textContent='Needs improvement';}
   else{riskTxt.textContent='On Track';riskTxt.style.color='#10b981';riskSub.textContent='Performing well';}
-  // KPIs
   document.getElementById('p-kpi-score').textContent=pct+'%';
   const subjScores=ALL_SUBJECTS.map(s=>({n:s.n,score:Math.min(100,Math.max(10,Math.round(s.avg+(r()-.5)*35)))}));
   const best=subjScores.reduce((a,b)=>b.score>a.score?b:a);
   const weak=subjScores.reduce((a,b)=>b.score<a.score?b:a);
   document.getElementById('p-kpi-best').textContent=best.n.split(' ')[0];
   document.getElementById('p-kpi-weak').textContent=weak.n.split(' ')[0];
-  const rank=ALL_STUDENTS.filter(s=>s.grade===child.grade&&s.score>child.score).length+1;
-  document.getElementById('p-kpi-rank').textContent='#'+rank;
-  // Subject bars
+  const rankN=ALL_STUDENTS.filter(s=>s.grade===child.grade&&s.score>child.score).length+1;
+  document.getElementById('p-kpi-rank').textContent='#'+rankN;
   document.getElementById('p-subject-bars').innerHTML=subjScores.map(s=>{
     const sub=ALL_SUBJECTS.find(x=>x.n===s.n)||{color:'#6366f1'};
     const c=s.score<60?'#ef4444':s.score<70?'#f59e0b':'#10b981';
     return `<div class="subj-row"><div class="sn" style="width:100px">${s.n}</div><div class="bt"><div data-w="${s.score}" style="height:100%;border-radius:20px;width:0;transition:width 1.2s ease;background:${sub.color}"></div></div><div class="bpct" style="color:${c}">${s.score}%</div><div style="font-size:9px;font-family:monospace;color:var(--muted2);width:50px;text-align:right">avg:${ALL_SUBJECTS.find(x=>x.n===s.n)?.avg||'—'}%</div></div>`;
   }).join('');
-  // Report card tab
   populateParentReportCard(child,r);
-  // Progress tab charts & table
   populateParentProgress(child,pct,subjScores);
-  // Charts
   setTimeout(()=>{
     mkChart('ch-p-hist',{type:'line',data:{labels:['T1','T2','T3','T4','T5','T6','T7','T8'],datasets:[{label:'Child',data:[pct+22,pct+18,pct+14,pct+10,pct+6,pct+3,pct+1,pct],borderColor:pct<60?'#ef4444':pct<70?'#f59e0b':'#10b981',backgroundColor:pct<60?'rgba(239,68,68,.08)':'rgba(99,102,241,.06)',fill:true,tension:.4,borderWidth:2,pointBackgroundColor:pct<60?'#ef4444':'#6366f1',pointBorderColor:'#fff',pointBorderWidth:2,pointRadius:4},{label:'Class Avg',data:[68,66,64,63,65,64,65,65],borderColor:'rgba(99,102,241,.4)',borderDash:[4,3],borderWidth:1.5,pointRadius:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:TC,font:{family:'monospace',size:9},boxWidth:7}},tooltip:TIP},scales:{x:{grid:{color:GC},ticks:{color:TC,font:{family:'monospace',size:9}}},y:{min:0,max:100,grid:{color:GC},ticks:{color:TC,font:{family:'monospace',size:9}}}}}});
     mkChart('ch-p-radar',{type:'radar',data:{labels:['Num Ops','Geometry','Algebra','Stats','Reading'],datasets:[{label:'Child',data:[28,31,45,52,61],borderColor:'#6366f1',backgroundColor:'rgba(99,102,241,.07)',borderWidth:2,pointBackgroundColor:'#6366f1',pointBorderColor:'#fff',pointRadius:4},{label:'Class Avg',data:[58,54,67,71,65],borderColor:'#10b981',backgroundColor:'rgba(16,185,129,.04)',borderWidth:2,borderDash:[4,3],pointBackgroundColor:'#10b981',pointRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:TC,font:{family:'monospace',size:9},boxWidth:7}},tooltip:TIP},scales:{r:{backgroundColor:'transparent',grid:{color:GC},angleLines:{color:GC},ticks:{backdropColor:'transparent',color:TC,font:{family:'monospace',size:8}},pointLabels:{color:TC,font:{family:'monospace',size:9}},suggestedMin:0,suggestedMax:100}}}});
@@ -1764,14 +1715,7 @@ function populateParentReportCard(child,r){
 }
 
 function populateParentProgress(child,pct,subjScores){
-  // Strand comparison
-  const strands=[
-    {n:'Number & Operations',my:28,class:58,color:'#ef4444'},
-    {n:'Geometry',my:31,class:54,color:'#ef4444'},
-    {n:'Algebra',my:45,class:67,color:'#f59e0b'},
-    {n:'Statistics',my:52,class:71,color:'#f59e0b'},
-    {n:'Reading',my:61,class:72,color:'#10b981'},
-  ];
+  const strands=[{n:'Number & Operations',my:28,class:58,color:'#ef4444'},{n:'Geometry',my:31,class:54,color:'#ef4444'},{n:'Algebra',my:45,class:67,color:'#f59e0b'},{n:'Statistics',my:52,class:71,color:'#f59e0b'},{n:'Reading',my:61,class:72,color:'#10b981'}];
   const el=document.getElementById('p-strand-compare');
   if(el)el.innerHTML=strands.map(s=>`
     <div style="margin-bottom:10px">
@@ -1782,39 +1726,27 @@ function populateParentProgress(child,pct,subjScores){
       </div>
     </div>`).join('');
   setTimeout(()=>animBars(el),200);
-  // Assessment history
-  const hist=[
-    {n:'Unit Test 2',subj:child.subject,date:'12 Apr',my:pct-8,avg:65,rank:'#22'},
-    {n:'Chapter Quiz',subj:'Science',date:'28 Mar',my:pct+5,avg:68,rank:'#17'},
-    {n:'Mid-Term',subj:child.subject,date:'15 Mar',my:pct-3,avg:63,rank:'#19'},
-    {n:'Practice Check',subj:'English',date:'3 Mar',my:pct+12,avg:74,rank:'#8'},
-    {n:'Unit Test 1',subj:'Hindi',date:'20 Feb',my:pct+18,avg:76,rank:'#5'},
-  ];
+  const hist=[{n:'Unit Test 2',subj:child.subject,date:'12 Apr',my:pct-8,avg:65,rank:'#22'},{n:'Chapter Quiz',subj:'Science',date:'28 Mar',my:pct+5,avg:68,rank:'#17'},{n:'Mid-Term',subj:child.subject,date:'15 Mar',my:pct-3,avg:63,rank:'#19'},{n:'Practice Check',subj:'English',date:'3 Mar',my:pct+12,avg:74,rank:'#8'},{n:'Unit Test 1',subj:'Hindi',date:'20 Feb',my:pct+18,avg:76,rank:'#5'}];
   const tb=document.getElementById('p-assess-history');
   if(tb)tb.innerHTML=hist.map(a=>{
     const sc=a.my<60?'pill-r':a.my<70?'pill-am':'pill-g';
     return `<tr><td style="font-size:11px">${a.n}</td><td style="font-size:10px;color:var(--muted)">${a.subj}</td><td style="font-size:10px;color:var(--muted)">${a.date}</td><td><span class="pill ${sc}">${a.my}%</span></td><td style="font-family:monospace;font-size:10px;color:var(--muted)">${a.avg}%</td><td style="font-family:monospace;font-size:10px">${a.rank}</td><td>${a.my>=a.avg?'<span class="up">↑ Above</span>':'<span class="dn">↓ Below</span>'}</td></tr>`;
   }).join('');
-  // Progress tab charts
   setTimeout(()=>{
     mkChart('ch-p-full-hist',{type:'line',data:{labels:['T1','T2','T3','T4','T5'],datasets:[{label:'Child',data:[pct+18,pct+10,pct-3,pct+12,pct-8],borderColor:'#6366f1',backgroundColor:'rgba(99,102,241,.07)',fill:true,tension:.4,borderWidth:2,pointBackgroundColor:'#6366f1',pointBorderColor:'#fff',pointBorderWidth:2,pointRadius:4},{label:'Class Avg',data:[65,68,63,74,65],borderColor:'rgba(16,185,129,.5)',borderDash:[4,3],borderWidth:1.5,pointRadius:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:TC,font:{family:'monospace',size:9},boxWidth:7}},tooltip:TIP},scales:{x:{grid:{color:GC},ticks:{color:TC,font:{family:'monospace',size:9}}},y:{min:0,max:100,grid:{color:GC},ticks:{color:TC,font:{family:'monospace',size:9}}}}}});
     mkChart('ch-p-subj-bar',{type:'bar',data:{labels:ALL_SUBJECTS.map(s=>s.n.split(' ')[0]),datasets:[{label:'Child',data:subjScores.map(s=>s.score),backgroundColor:ALL_SUBJECTS.map(s=>s.color+'bb'),borderRadius:4},{label:'Avg',data:ALL_SUBJECTS.map(s=>s.avg),backgroundColor:'rgba(99,102,241,.15)',borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:TC,font:{family:'monospace',size:9},boxWidth:7}},tooltip:TIP},scales:{x:{grid:{color:GC},ticks:{color:TC,font:{family:'monospace',size:9}}},y:{min:0,max:100,grid:{color:GC},ticks:{color:TC,font:{family:'monospace',size:9}}}}}});
   },200);
 }
 
-// Parent tabs
 function showParentTab(tab,btn){
   ['overview','report','ai','progress','alerts'].forEach(t=>{
-    const c=document.getElementById(`ptab-content-${t}`);
-    const b=document.getElementById(`ptab-${t}`);
-    if(c)c.style.display='none';
-    if(b)b.classList.remove('active');
+    const c=document.getElementById('ptab-content-'+t);const b=document.getElementById('ptab-'+t);
+    if(c)c.style.display='none';if(b)b.classList.remove('active');
   });
-  const content=document.getElementById(`ptab-content-${tab}`);
+  const content=document.getElementById('ptab-content-'+tab);
   if(content)content.style.display='block';
   if(btn)btn.classList.add('active');
-  else{const b=document.getElementById(`ptab-${tab}`);if(b)b.classList.add('active');}
-  // Render charts for tabs that need it
+  else{const b=document.getElementById('ptab-'+tab);if(b)b.classList.add('active');}
   if(tab==='progress'){
     const child=SESSION.childStudent||ALL_STUDENTS[0];
     const r=seededRand(child.id*13+7);
@@ -1823,7 +1755,6 @@ function showParentTab(tab,btn){
   }
 }
 
-// Parent AI Chat
 function sendParentAI(){
   const inp=document.getElementById('parent-ai-input');
   const msg=inp.value.trim();if(!msg)return;inp.value='';
@@ -1832,25 +1763,15 @@ function sendParentAI(){
   msgs.scrollTop=msgs.scrollHeight;
   const child=SESSION.childStudent||ALL_STUDENTS[0];
   const fn=child.name.split(' ')[0];
-  const replies=[
-    `Based on ${fn}'s recent data, the biggest gap is in Geometry — particularly triangle congruence criteria. I recommend 15 minutes of focused practice daily this week.`,
-    `${fn}'s score has been declining over the last 3 assessments in Mathematics. The class average is 64%, and ${fn} is currently at ${child.score}%. Consider requesting a teacher meeting.`,
-    `Great question! For the upcoming Science quiz, ${fn} should focus on photosynthesis and cell structure — these are the most commonly tested topics in this unit.`,
-    `${fn} actually performs well in English and Hindi. You can use that strength as motivation — try relating math word problems to stories to make them more engaging.`,
-    `I'd suggest a study schedule of 20 min Math + 10 min Hindi reading each evening. Consistency over 3 weeks typically shows a 5-10% improvement in at-risk students.`,
-    `The next assessment for ${fn}'s class is in approximately 5 days. Based on current preparation level, I predict a score between ${child.score-5}% and ${child.score+8}%.`,
-  ];
+  const replies=[`Based on ${fn}'s recent data, the biggest gap is in Geometry — particularly triangle congruence criteria. I recommend 15 minutes of focused practice daily this week.`,`${fn}'s score has been declining over the last 3 assessments. Class average is 64%, and ${fn} is currently at ${child.score}%. Consider requesting a teacher meeting.`,`For the upcoming Science quiz, ${fn} should focus on photosynthesis and cell structure.`,`${fn} performs well in English and Hindi. Try relating math word problems to stories to make them more engaging.`,`I'd suggest 20 min Math + 10 min Hindi reading each evening. Consistency over 3 weeks shows a 5-10% improvement in at-risk students.`];
   setTimeout(()=>{
-    const rep=replies[Math.floor(Math.random()*replies.length)];
-    msgs.innerHTML+=`<div class="ai-msg-ai"><div style="width:28px;height:28px;border-radius:8px;background:#6366f1;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:14px">🤖</span></div><div class="ai-msg-ai-bub">${rep}</div></div>`;
+    msgs.innerHTML+=`<div class="ai-msg-ai"><div style="width:28px;height:28px;border-radius:8px;background:#6366f1;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="font-size:14px">🤖</span></div><div class="ai-msg-ai-bub">${replies[Math.floor(Math.random()*replies.length)]}</div></div>`;
     msgs.scrollTop=msgs.scrollHeight;
   },700);
 }
 
-// Generic AI Chat
 function sendChat(){
-  const inp=document.getElementById('chat-input');
-  const msg=inp.value.trim();if(!msg)return;inp.value='';
+  const inp=document.getElementById('chat-input');const msg=inp.value.trim();if(!msg)return;inp.value='';
   const msgs=document.getElementById('chat-msgs');
   msgs.innerHTML+=`<div style="display:flex;gap:7px;justify-content:flex-end"><div style="background:#6366f1;color:#fff;border-radius:10px;padding:7px 10px;font-size:12px;max-width:80%">${msg}</div></div>`;
   msgs.scrollTop=msgs.scrollHeight;
